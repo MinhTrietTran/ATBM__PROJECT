@@ -519,5 +519,15 @@ namespace UsersManagement
             dk_nam_textbox.Clear();
             dk_mact_textbox.Clear();
         }
+
+        private void hk_textbox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void phancong_tab_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
