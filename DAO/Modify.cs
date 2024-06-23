@@ -33,7 +33,7 @@ namespace DAO
         public DataTable LoadTable(string query, string username, string password, string role) // Tra ve bang du lieu
         {
             DataTable dataTable = new DataTable();
-            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username,password, role))
+            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username,password))
             {
                 oracleConnection.Open();
 
@@ -79,10 +79,10 @@ namespace DAO
 
 
         // ======= THEM CAC HAM TUONG TU THAY CHO SYS DE LAM VIEC VOI USER ADMIN KHAC NGOAI SYS =======
-        public DataTable LoadTableByUser(string query, string username, string password, string role) // Tra ve bang du lieu
+        public DataTable LoadTableByUser(string query, string username, string password) // Tra ve bang du lieu
         {
             DataTable dataTable = new DataTable();
-            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username, password, role))
+            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username, password))
             {
                 oracleConnection.Open();
 
@@ -90,7 +90,6 @@ namespace DAO
                 {
                     using (OracleDataReader reader = command.ExecuteReader())
                     {
-
                         dataTable.Load(reader);
                     }
                 }
@@ -104,7 +103,7 @@ namespace DAO
         // Thuc thi cau lenh dưới danh nghĩa user hiện tại đang giữ session
         public void ExecuteQueryByUser(string query, string username, string password, string role) 
         {
-            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username, password, role))
+            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username, password))
             {
                 oracleConnection.Open();
                 using (OracleCommand command = new OracleCommand(query, oracleConnection))
@@ -118,7 +117,7 @@ namespace DAO
         public object ExecuteScalarByUser(string query, string username, string password, string role)
         {
             object result = null;
-            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username, password, role))
+            using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username, password))
             {
                 oracleConnection.Open();
                 using (OracleCommand command = new OracleCommand(query, oracleConnection))

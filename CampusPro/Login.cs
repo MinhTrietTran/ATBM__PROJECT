@@ -23,6 +23,41 @@ namespace UsersManagement
             username = usernameTextBox.Text.ToString();
             password = passwordTextBox.Text.ToString();
             role = roleComboBox.Text.ToString();
+            switch (role)
+            {
+                case "Sinh viên":
+                    {
+                        role = "SINHVIEN";
+                        break;
+                    }
+                case "Nhân viên cơ bản":
+                    {
+                        role = "NHANVIENCOBAN";
+                        break;
+                    }
+                case "Giảng viên":
+                    {
+                        role = "GIANGVIEN";
+                        break;
+                    }
+                case "Giáo vụ":
+                    {
+                        role = "GIAOVU";
+                        break;
+                    }
+                case "Trưởng đơn vị":
+                    {
+                        role = "TRUONGDONVI";
+                        break;
+                    }
+                case "Trưởng khoa":
+                    {
+                        role = "TRUONGKHOA";
+                        break;
+                    }
+                default:
+                    break;
+            }
 
             if (login.Authenticate(username.ToUpper(), password, role) && role == "DBA")   // Go to Main form DBA UI
             {
@@ -34,6 +69,21 @@ namespace UsersManagement
                 obj.role = role;
 
                 // Mo main
+                obj.Show();
+                this.Hide();
+            }
+            else if (login.Authenticate(username.ToUpper(), password, role) && role == "GIAOVU") // Go to Main form User UI
+            {
+                // Form giao vu
+                MessageBox.Show("Connected as GIAOVU!");
+                GIAOVU_UI obj = new GIAOVU_UI();
+
+                // Set qua giaovu
+                obj.username = username;
+                obj.password = password;
+                obj.role = role;
+
+                // Mo giao vu
                 obj.Show();
                 this.Hide();
             }

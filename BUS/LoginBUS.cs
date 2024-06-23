@@ -14,16 +14,18 @@ namespace BUS
         public bool Authenticate(string username, string password, string role)
         {
             // Used to test the connection
-            MessageBox.Show($"{username}, {password}, {role}");
+            //MessageBox.Show($"{username}, {password}, {role}");
 
-            using (var conn = LoginDAO.GetAppConnection(username, password, role))
+            using (var conn = LoginDAO.GetAppConnection(username, password))
             {
                 try
                 {
                     conn.Open();
+                    //MessageBox.Show("Vo tr")
                     // Thực hiện các thao tác với cơ sở dữ liệu
                     //Console.WriteLine("Kết nối thành công!");
-                    return true && login.IsCorrectRole(username, password, role);
+                    //MessageBox.Show("Sau khi mo ket noi");
+                    return login.IsCorrectRole(username, password, role);
                 }
                 catch (Exception ex)
                 {
