@@ -144,23 +144,23 @@ namespace DAO
         public void GrantUser(string privilege, string table, string user, string username, string password, string role)
         {
             string query = $"GRANT {privilege} ON {table} TO {user}";
-            modify.ExecuteQueryByUser(query, username, password, role);
+            modify.ExecuteQueryByUser(query, username, password);
         }
         public void GrantUserWithGrantOption(string privilege, string table, string user, string username, string password, string role)
         {
             string query = $"GRANT {privilege} ON {table} TO {user} WITH GRANT OPTION";
-            modify.ExecuteQueryByUser(query, username, password, role);
+            modify.ExecuteQueryByUser(query, username, password);
         }
         public void GrantUserToColLevel(string privilege, string column, string table, string user, string username,string password, string role)
         {
             string query = $"GRANT {privilege}({column}) ON {table} TO {user}";
-            modify.ExecuteQueryByUser(query, username, password, role);
+            modify.ExecuteQueryByUser(query, username, password);
         }
 
         public void GrantUserToColLevelWithGrantOption(string privilege, string column, string table,string user, string username, string password, string role)
         {
             string query = $"GRANT {privilege}({column}) ON {table} TO {user} WITH GRANT OPTION";
-            modify.ExecuteQueryByUser(query, username, password, role);
+            modify.ExecuteQueryByUser(query, username, password);
         }
 
         public bool IsViewExist(string viewName, string username, string password, string role)
@@ -185,12 +185,12 @@ namespace DAO
                 query = $"CREATE VIEW {table}_{column}_VIEW AS " +
                         $"SELECT {column} " +
                         $"FROM {table}";
-                modify.ExecuteQueryByUser(query, username, password, role);
+                modify.ExecuteQueryByUser(query, username, password);
             }
 
             // grant select tren view do cho user with grant option
             query = $"GRANT SELECT ON {table}_{column}_VIEW TO {user}";
-            modify.ExecuteQueryByUser(query, username, password, role);
+            modify.ExecuteQueryByUser(query, username, password);
         }
        
         public void GrantUserSelectToColLevelWithGrantOption(string column, string table, string user, string username, string password, string role)
@@ -202,18 +202,18 @@ namespace DAO
                 query = $"CREATE VIEW {table}_{column}_VIEW AS " +
                         $"SELECT {column} " +
                         $"FROM {table}";
-                modify.ExecuteQueryByUser(query, username, password, role);
+                modify.ExecuteQueryByUser(query, username, password);
             }
 
             // grant select tren view do cho user with grant option
             query = $"GRANT SELECT ON {table}_{column}_VIEW TO {user} WITH GRANT OPTION";
-            modify.ExecuteQueryByUser(query, username, password, role);
+            modify.ExecuteQueryByUser(query, username, password);
         }
 
-        public void RevokeUser(string privilege, string table, string user, string username, string password, string role)
+        public void RevokeUser(string privilege, string table, string user, string username, string password)
         {
             string query = $"REVOKE {privilege} ON {table} FROM {user}";
-            modify.ExecuteQueryByUser(query, username, password, role);
+            modify.ExecuteQueryByUser(query, username, password);
         }
     }
 }

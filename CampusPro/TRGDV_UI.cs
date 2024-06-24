@@ -67,7 +67,14 @@ namespace UsersManagement
             dtbtl_textb.Text = sinhvienDGV.Rows[e.RowIndex].Cells[9].Value?.ToString();
         }
 
-  
+        private void getUSER_Click(object sender, EventArgs e)
+        {
+            DataTable datatable = new DataTable();
+            string query = "SELECT * FROM CAMPUSADMIN.UV_INFOR";
+            datatable = modify.LoadTableByUser(query, username, password);
+            userDGV.DataSource = datatable;
+            newPhoneNumber.Text = userDGV.Rows[0].Cells[5].Value.ToString();
+        }
 
         private void getSINHVIEN_Click(object sender, EventArgs e)
         {  
@@ -314,6 +321,7 @@ namespace UsersManagement
             }
         }
 
+
         private void getPHANCONG_of_myDONVI_Click(object sender, EventArgs e)
         {
             thempc_button.Enabled = false;
@@ -360,6 +368,28 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}", "Error");
+            }
+        }
+
+        private void user_tab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void phoneNumberChange_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string newsdt = newPhoneNumber.Text.ToString();
+                string query = $"UPDATE CAMPUSADMIN.NHANSU SET DT = '{newsdt}' WHERE MANV = '{username}'";
+                modify.ExecuteQueryByUser(query, "CAMPUSADMIN", "1");
+                //MessageBox.Show("Thay đổi số điện thoại thành công");
+                MessageBox.Show("Change phone number successfully", "Thông báo");
+                getUSER_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi thêm: {ex.Message}");
             }
         }
     }

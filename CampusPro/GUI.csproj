@@ -116,6 +116,12 @@
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="GiangVien_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GiangVien_UI.Designer.cs">
+      <DependentUpon>GiangVien_UI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GIAOVU_UI.cs">
       <SubType>Form</SubType>
     </Compile>

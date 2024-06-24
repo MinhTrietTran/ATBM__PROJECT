@@ -27,7 +27,7 @@ namespace BUS
                 return false;
             }
         }
-
+        public DataTable getUSER(string username, string password) => nhanVienCoBan.getUSER(username, password);
         public DataTable getSINHVIEN(string username, string password) => nhanVienCoBan.getSINHVIEN(username, password);
 
         public DataTable getDONVI(string username, string password) => nhanVienCoBan.getDONVI(username, password);
@@ -57,6 +57,8 @@ namespace BUS
                 MessageBox.Show($"Error: {ex.Message}", "Error");
             }
         }
+
+        public void ChangePhoneNumber(string username, string password, string newPhoneNumber) => nhanVienCoBan.ChangePhoneNumber(username, password, newPhoneNumber);
 
 
     }

@@ -27,6 +27,12 @@ namespace CampusPro
             InitializeComponent();
         }
 
+        private void getUSER_Click(object sender, EventArgs e)
+        {
+            userDGV.DataSource = nhanVienCoBan.getUSER(username, password);
+            newPhoneNumber.Text = userDGV.Rows[0].Cells[5].Value.ToString();
+        }
+
         private void getSINHVIEN_Click(object sender, EventArgs e)
         {
             sinhvienDGV.DataSource = nhanVienCoBan.getSINHVIEN(username, password);
@@ -64,6 +70,21 @@ namespace CampusPro
         private void getTHONGBAO_Click(object sender, EventArgs e)
         {
             nhanVienCoBan.getTHONGBAO(username, password);
+        }
+
+        private void phoneNumberChange_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string newsdt = newPhoneNumber.Text.ToString();
+                nhanVienCoBan.ChangePhoneNumber(username, password, newsdt);
+                MessageBox.Show("Change phone number successfully", "Thông báo");
+                getUSER_Click(sender,e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi thêm: {ex.Message}");
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace CampusPro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GIAOVU_UI());
+            Application.Run(new Login());
         }
     }
 }

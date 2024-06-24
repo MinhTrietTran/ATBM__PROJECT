@@ -124,7 +124,7 @@ namespace DAO
 
 
         // Thuc thi cau lenh dưới danh nghĩa user hiện tại đang giữ session
-        public void ExecuteQueryByUser(string query, string username, string password, string role) 
+        public void ExecuteQueryByUser(string query, string username, string password) 
         {
             using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username, password))
             {
