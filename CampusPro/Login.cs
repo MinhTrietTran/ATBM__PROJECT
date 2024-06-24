@@ -21,6 +21,7 @@ namespace UsersManagement
         private void loginBtn_Click(object sender, EventArgs e)
         {
             username = usernameTextBox.Text.ToString();
+            username = username.ToUpper();
             password = passwordTextBox.Text.ToString();
             role = roleComboBox.Text.ToString();
             switch (role)
@@ -72,7 +73,7 @@ namespace UsersManagement
                 obj.Show();
                 this.Hide();
             }
-            else if (login.Authenticate(username.ToUpper(), password, role) && role == "GIAOVU") // Go to Main form User UI
+            else if (login.Authenticate(username.ToUpper(), password, role) && role == "GIAOVU") // Go to Main form GIAOVU UI
             {
                 // Form giao vu
                 MessageBox.Show("Connected as GIAOVU!");
@@ -84,6 +85,21 @@ namespace UsersManagement
                 obj.role = role;
 
                 // Mo giao vu
+                obj.Show();
+                this.Hide();
+            }
+            else if (login.Authenticate(username,password,role) && role == "TRUONGDONVI") // Go to main form TRUONGDONVI    UI
+            {
+                // Form truong don vi
+                MessageBox.Show("Connected as TRUONGDONVI!");
+                TRGDV_UI obj = new TRGDV_UI();
+
+                // Set qua truong don vi
+                obj.username = username;
+                obj.password = password;
+                obj.role = role;
+
+                // Mo truong don vi
                 obj.Show();
                 this.Hide();
             }

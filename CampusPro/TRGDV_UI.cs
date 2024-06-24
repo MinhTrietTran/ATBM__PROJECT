@@ -17,6 +17,11 @@ namespace UsersManagement
     public partial class TRGDV_UI : Form
     {
 
+        // Get from Login.cs
+        public string username { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
+
         //public static OracleConnection conNow = Login.con;
         public bool IsWithinFirstFourteenDays(DateTime currentDate)
         {
@@ -62,39 +67,33 @@ namespace UsersManagement
             dtbtl_textb.Text = sinhvienDGV.Rows[e.RowIndex].Cells[9].Value?.ToString();
         }
 
-        private void dangxuat_button_Click(object sender, EventArgs e)
-        {
-            Login obj = new Login();
-            obj.Show();
-            this.Hide();
-        }
-
+  
 
         private void getSINHVIEN_Click(object sender, EventArgs e)
         {  
-            sinhvienDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.SINHVIEN");
+            sinhvienDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.SINHVIEN", username, password);
         }
 
         private void getDONVI_Click(object sender, EventArgs e)
         {
-            donviDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.DONVI");
+            donviDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.DONVI", username, password);
         }
 
         private void getHOCPHAN_Click(object sender, EventArgs e)
         {
-            hocphanDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.HOCPHAN");
+            hocphanDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.HOCPHAN", username, password);
         }
 
         private void getKHMO_Click(object sender, EventArgs e)
         {
-            khmoDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.KHMO");
+            khmoDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.KHMO", username, password);
         }
         private void getPHANCONG_Click(object sender, EventArgs e)
         {
             thempc_button.Enabled = false;
             xoapc_button.Enabled = false;
             capnhatpc_button.Enabled = false;
-            phancongDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.UV_PHANCONG_GV");
+            phancongDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_PHANCONG_GV", username, password);
         }
         
         private void getPHANCONG_for_update_Click(object sender, EventArgs e)
@@ -103,13 +102,13 @@ namespace UsersManagement
             xoapc_button.Enabled = true;
             capnhatpc_button.Enabled = true;
 
-            phancongDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.UV_SELPHANCONG_TRGDV");
+            phancongDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_SELPHANCONG_TRGDV", username, password);
         }
 
         private void getDANGKY_Click(object sender, EventArgs e)
         {
-            //dangkyDGV.DataSource = modify.GetDataTable("SELECT* FROM C##ADMIN.UV_SELDANGKY", conNow);
-            dangkyDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.UV_SELDANGKY_4TEST");
+            //dangkyDGV.DataSource = modify.GetDataTable("SELECT* FROM CAMPUSADMIN.UV_SELDANGKY", conNow);
+            dangkyDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_SELDANGKY_4TEST", username, password);
         }
 
         private void donviDGV_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -175,7 +174,7 @@ namespace UsersManagement
             {
                 
                 OracleConnection conNow = Connection.GetOracleConnection();
-                string strsql = $"DELETE C##ADMIN.DANGKY WHERE  MASV = :MASV AND MAGV = :MAGV AND MAHP = :MAHP AND HK = :HOCKY AND NAM = :NAM AND MACT = :MACT";
+                string strsql = $"DELETE CAMPUSADMIN.DANGKY WHERE  MASV = :MASV AND MAGV = :MAGV AND MAHP = :MAHP AND HK = :HOCKY AND NAM = :NAM AND MACT = :MACT";
                 try
                 {
                     DataGridViewRow selectedRow = dangkyDGV.SelectedRows[0];
@@ -228,7 +227,7 @@ namespace UsersManagement
         private void themdk_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"INSERT INTO C##ADMIN.DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES (:MASV, :MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
+            string strsql = $"INSERT INTO CAMPUSADMIN.DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES (:MASV, :MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -276,7 +275,7 @@ namespace UsersManagement
         // capnhatpc_Click
         private void button2_Click(object sender, EventArgs e)
         {
-            string strsql = $"UPDATE C##ADMIN.PHANCONG SET HK = {pc_hk_textbox.Text}, NAM = {pc_nam_textbox.Text}, MACT = {pc_mact_textbox.Text} WHERE MAGV = {pc_magv_textbox.Text} AND MAHP = {pc_mahp_textbox.Text}";
+            string strsql = $"UPDATE CAMPUSADMIN.PHANCONG SET HK = {pc_hk_textbox.Text}, NAM = {pc_nam_textbox.Text}, MACT = {pc_mact_textbox.Text} WHERE MAGV = {pc_magv_textbox.Text} AND MAHP = {pc_mahp_textbox.Text}";
             try
             {
                 modify.ExecuteQuery(strsql);
@@ -299,7 +298,7 @@ namespace UsersManagement
             {
                 DataGridViewRow selectedRow = phancongDGV.SelectedRows[0];
 
-                string strsql = $"DELETE C##ADMIN.PHANCONG WHERE  MAGV = {selectedRow.Cells[0].Value} AND MAHP = {selectedRow.Cells[1].Value} AND HK = {selectedRow.Cells[2].Value} AND NAM = {selectedRow.Cells[3].Value} AND MACT = {selectedRow.Cells[4].Value}";
+                string strsql = $"DELETE CAMPUSADMIN.PHANCONG WHERE  MAGV = {selectedRow.Cells[0].Value} AND MAHP = {selectedRow.Cells[1].Value} AND HK = {selectedRow.Cells[2].Value} AND NAM = {selectedRow.Cells[3].Value} AND MACT = {selectedRow.Cells[4].Value}";
                 try
                 {
             
@@ -320,7 +319,48 @@ namespace UsersManagement
             thempc_button.Enabled = false;
             xoapc_button.Enabled = false;
             capnhatpc_button.Enabled = false;
-            phancongDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.UV_PHANCONG_OF_DONVI");
+            phancongDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_PHANCONG_OF_DONVI", username, password);
+        }
+
+
+        // Flow layout panel
+        private void logoutBtn_Click(object sender, EventArgs e)
+        {
+            Login obj = new Login();
+            obj.Show();
+            this.Hide();
+        }
+
+        private void dangxuat_button_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void phancong_tab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void getTHONGBAO_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> nofi = modify.LoadTableNofi("SELECT * FROM ADMIN_OLS.THONGBAO", username, password);
+
+                if (nofi.Count > 0)
+                {
+                    string message = string.Join(Environment.NewLine, nofi);
+                    MessageBox.Show(message, "Notification");
+                }
+                else
+                {
+                    MessageBox.Show("Don't have any notifiaction", "Thông báo");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error");
+            }
         }
     }
 }
