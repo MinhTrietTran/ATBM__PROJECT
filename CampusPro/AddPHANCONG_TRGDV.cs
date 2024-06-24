@@ -23,7 +23,7 @@ namespace UsersManagement
 
         private void AddPHANCONG_TRGDV_Load(object sender, EventArgs e)
         {
-            string strsql = $"SELECT MAHP FROM C##ADMIN.HOCPHAN WHERE MAĐV IN (SELECT MAĐV FROM C##ADMIN.DONVI WHERE TRGĐV = USER)";
+            string strsql = $"SELECT MAHP FROM CAMPUSADMIN.HOCPHAN WHERE MADV IN (SELECT MAĐV FROM CAMPUSADMIN.DONVI WHERE TRGDV = USER)";
             OracleCommand cmd = new OracleCommand(strsql, Connection.GetOracleConnection());
 
             OracleDataReader reader = cmd.ExecuteReader();
@@ -45,7 +45,7 @@ namespace UsersManagement
 
         private void addpc_them_button_Click(object sender, EventArgs e)
         {
-            string strsql = $"INSERT INTO C##ADMIN.PHANCONG (MAGV, MAHP, HK, NAM, MACT) VALUES (:MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
+            string strsql = $"INSERT INTO CAMPUSADMIN.PHANCONG (MAGV, MAHP, HK, NAM, MACT) VALUES (:MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
                 if (!addpc_mahp_cbbox.Items.Contains(addpc_mahp_cbbox.Text))

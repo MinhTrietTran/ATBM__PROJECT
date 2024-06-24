@@ -67,13 +67,6 @@ namespace UsersManagement
             dtbtl_textb.Text = sinhvienDGV.Rows[e.RowIndex].Cells[9].Value?.ToString();
         }
 
-        private void dangxuat_button_Click(object sender, EventArgs e)
-        {
-            Login obj = new Login();
-            obj.Show();
-            this.Hide();
-        }
-
 
         private void getSINHVIEN_Click(object sender, EventArgs e)
         {  

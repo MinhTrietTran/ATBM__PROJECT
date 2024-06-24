@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CampusPro;
+using System;
 using System.Drawing;
 using System.Net.Security;
 using System.Windows.Forms;
@@ -100,6 +101,21 @@ namespace UsersManagement
                 obj.role = role;
 
                 // Mo truong don vi
+                obj.Show();
+                this.Hide();
+            }
+            else if(login.Authenticate(username,password, role) && role == "NHANVIENCOBAN") // Go to main form NHANVIENCOBAN
+            {
+                // For nhan vien co ban
+                MessageBox.Show("Connected as NHANVIENCOBAN!");
+                NhanVienCoBan_UI obj = new NhanVienCoBan_UI();
+
+                // Set qua nhan vien co ban
+                obj.username = username;
+                obj.password = password;
+                obj.role = role;
+
+                // Mo nhan vien co ban
                 obj.Show();
                 this.Hide();
             }

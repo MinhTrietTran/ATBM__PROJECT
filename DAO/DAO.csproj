@@ -53,6 +53,7 @@
     <Compile Include="Connection.cs" />
     <Compile Include="LoginDAO.cs" />
     <Compile Include="Modify.cs" />
+    <Compile Include="NhanVienCoBan_DAO.cs" />
     <Compile Include="PrivilegesDAO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
