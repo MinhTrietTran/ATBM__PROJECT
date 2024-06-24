@@ -1,4 +1,5 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using System.Collections.Generic;
 using System.Data;
 using UsersManagement;
 
@@ -98,6 +99,28 @@ namespace DAO
             return dataTable;
         }
 
+        public List<string> LoadTableNofi(string query, string username, string password)
+        {
+            DataTable dataTable = new DataTable();
+            List<string> nofi = new List<string>();
+            using (OracleConnection oracleConnection = LoginDAO.GetPDBConnection(username, password))
+            {
+                oracleConnection.Open();
+                using (OracleCommand command = new OracleCommand(query, oracleConnection))
+                {
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        dataTable.Load(reader);
+                    }
+                }
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    nofi.Add(row[1].ToString());
+                }
+                oracleConnection.Close();
+            }
+            return nofi;
+        }
 
 
         // Thuc thi cau lenh dưới danh nghĩa user hiện tại đang giữ session

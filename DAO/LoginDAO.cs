@@ -42,6 +42,12 @@ namespace DAO
             MessageBox.Show($"So tra ve {count}");
             return false;
         }
+
+        public static OracleConnection GetPDBConnection(string username, string password)
+        {
+            string newStringConnection = $@"DATA SOURCE=localhost:1521/CAMPUSPDB;PASSWORD={password};USER ID={username}";
+            return new OracleConnection(newStringConnection);
+        }
     }
 
 }

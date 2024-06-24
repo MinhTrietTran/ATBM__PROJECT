@@ -547,5 +547,27 @@ namespace UsersManagement
             obj.Show();
             this.Hide();
         }
+
+        private void getTHONGBAO_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> nofi = modify.LoadTableNofi("SELECT * FROM ADMIN_OLS.THONGBAO", username, password);
+
+                if (nofi.Count > 0)
+                {
+                    string message = string.Join(Environment.NewLine, nofi);
+                    MessageBox.Show(message, "Notification");
+                }
+                else
+                {
+                    MessageBox.Show("Don't have any notifiaction", "Thông báo");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error");
+            }
+        }
     }
 }
