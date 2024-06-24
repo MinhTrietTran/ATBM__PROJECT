@@ -1,6 +1,6 @@
 ﻿namespace UsersManagement
 {
-    partial class GIAOVU_UI
+    partial class TRUONGKHOA_UI
     {
         /// <summary>
         /// Required designer variable.
@@ -1615,7 +1615,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GIAOVU_UI";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.GIAOVU_UI_Load);
+            this.Load += new System.EventHandler(this.TRUONGKHOA_UI_Load);
             this.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.GIAOVU_UI_ControlRemoved);
             this.hocphnan_tab.ResumeLayout(false);
             this.hocphnan_tab.PerformLayout();
@@ -1658,7 +1658,7 @@
         private System.Windows.Forms.DataGridView sinhvienDGV;
         private System.Windows.Forms.Button getHOCPHAN;
         private System.Windows.Forms.Button getKHMO;
-  //      private System.DirectoryServices.DirectoryEntry directoryEntry1;
+        //      private System.DirectoryServices.DirectoryEntry directoryEntry1;
         private System.Windows.Forms.TextBox hoten_textbox;
         private System.Windows.Forms.TextBox ns_textbox;
         private System.Windows.Forms.TextBox gioitinh_textbox;

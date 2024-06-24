@@ -14,7 +14,7 @@ using DAO;
 
 namespace UsersManagement
 {
-    public partial class GIAOVU_UI : Form
+    public partial class TRUONGKHOA_UI : Form
     {
 
         //public static OracleConnection conNow = Login.con;
@@ -33,12 +33,12 @@ namespace UsersManagement
             }
         }
 
-        public GIAOVU_UI()
+        public TRUONGKHOA_UI()
         {
             InitializeComponent();
         }
         Modify modify = new Modify();
-        private void GIAOVU_UI_Load(object sender, EventArgs e)
+        private void TRUONGKHOA_UI_Load(object sender, EventArgs e)
         {
             
         }
