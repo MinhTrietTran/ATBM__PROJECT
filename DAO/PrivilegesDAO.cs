@@ -8,7 +8,7 @@ namespace DAO
     {
         Modify modify = new Modify();
 
-        public DataTable LoadAllUsersInTabLevel(string username, string password, string role)
+        public DataTable LoadAllUsersInTabLevel(string username, string password)
         {
             DataTable dataTable = new DataTable();
             string query = "SELECT U.USERNAME, " +
@@ -17,11 +17,11 @@ namespace DAO
                                                         "COALESCE(P.PRIVILEGE, 'N/A') AS PRIVILEGE, " +
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_USERS U LEFT JOIN DBA_TAB_PRIVS P ON U.USERNAME = P.GRANTEE";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 
-        public DataTable LoadAllUsersInColLevel(string username, string password, string role)
+        public DataTable LoadAllUsersInColLevel(string username, string password)
         {
             DataTable dataTable = new DataTable();
             string query = "SELECT U.USERNAME, " +
@@ -31,11 +31,11 @@ namespace DAO
                                                         "COALESCE(P.PRIVILEGE, 'N/A') AS PRIVILEGE, " +
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_USERS U LEFT JOIN DBA_COL_PRIVS P ON U.USERNAME = P.GRANTEE";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 
-        public DataTable LoadAllRolesInTabLevel(string username, string password, string role)
+        public DataTable LoadAllRolesInTabLevel(string username, string password)
         {
             DataTable dataTable = new DataTable();
             string query = "SELECT R.ROLE, " +
@@ -44,11 +44,11 @@ namespace DAO
                                                         "COALESCE(P.PRIVILEGE, 'N/A') AS PRIVILEGE, " +
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_ROLES R LEFT JOIN DBA_TAB_PRIVS P ON R.ROLE = P.GRANTEE";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 
-        public DataTable LoadAllRolesInColLevel(string username, string password, string role)
+        public DataTable LoadAllRolesInColLevel(string username, string password)
         {
             DataTable dataTable = new DataTable();
             string query = "SELECT R.ROLE, " +
@@ -58,11 +58,11 @@ namespace DAO
                                                         "COALESCE(P.PRIVILEGE, 'N/A') AS PRIVILEGE, " +
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_ROLES R LEFT JOIN DBA_COL_PRIVS P ON R.ROLE = P.GRANTEE";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 
-        public DataTable FilterUsersInTabLevel(string usernameSearch, string username, string password, string role)
+        public DataTable FilterUsersInTabLevel(string usernameSearch, string username, string password)
         { 
             DataTable dataTable = new DataTable();
             string query = "SELECT U.USERNAME, " +
@@ -72,11 +72,11 @@ namespace DAO
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_USERS U LEFT JOIN DBA_TAB_PRIVS P ON U.USERNAME = P.GRANTEE " +
                                                         "WHERE U.USERNAME = '" + usernameSearch + "'";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 
-        public DataTable FilterUsersInColLevel(string usernameSearch, string username, string password, string role)
+        public DataTable FilterUsersInColLevel(string usernameSearch, string username, string password)
         {
             DataTable dataTable = new DataTable();
             string query = "SELECT U.USERNAME, " +
@@ -87,11 +87,11 @@ namespace DAO
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_USERS U LEFT JOIN DBA_COL_PRIVS P ON U.USERNAME = P.GRANTEE " +
                                                         "WHERE U.USERNAME = '" + usernameSearch + "'";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 
-        public DataTable FilterRolesInTabLevel(string roleSearch, string username, string password, string role)
+        public DataTable FilterRolesInTabLevel(string roleSearch, string username, string password)
         {
             DataTable dataTable = new DataTable();
             string query = "SELECT R.ROLE, " +
@@ -101,11 +101,11 @@ namespace DAO
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_ROLES R LEFT JOIN DBA_TAB_PRIVS P ON R.ROLE = P.GRANTEE " +
                                                         "WHERE R.ROLE = '" + roleSearch + "'";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 
-        public DataTable FilterRolesInColLevel(string roleSearch, string username, string password, string role)
+        public DataTable FilterRolesInColLevel(string roleSearch, string username, string password)
         {
             DataTable dataTable = new DataTable();
             string query = "SELECT R.ROLE, " +
@@ -116,7 +116,7 @@ namespace DAO
                                                         "COALESCE(P.GRANTABLE, 'N/A') AS GRANTABLE " +
                                                         "FROM DBA_ROLES R LEFT JOIN DBA_COL_PRIVS P ON R.ROLE = P.GRANTEE " +
                                                         "WHERE R.ROLE = '" + roleSearch + "'";
-            dataTable = modify.LoadTableByUser(query, username, password, role);
+            dataTable = modify.LoadTableByUser(query, username, password);
             return dataTable;
         }
 

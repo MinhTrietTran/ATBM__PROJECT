@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using UsersManagement;
 
 namespace DAO
@@ -11,7 +12,7 @@ namespace DAO
     public class LoginDAO
     {
         Modify modify = new Modify();
-        public static OracleConnection GetAppConnection(string username, string password, string role)
+        public static OracleConnection GetAppConnection(string username, string password)
         {
             if (username == "SYS")
                 return new OracleConnection($@"DATA SOURCE=localhost:1521/XEPDB1;DBA PRIVILEGE=SYSDBA;TNS_ADMIN=C:\Users\Admin\Oracle\network\admin;PASSWORD={password};PERSIST SECURITY INFO=True;USER ID=SYS");
@@ -24,11 +25,11 @@ namespace DAO
 
         public bool IsCorrectRole(string username,string password, string role)
         {
-            OracleConnection conn = GetAppConnection(username, password, role);
+            OracleConnection conn = Connection.GetOracleConnection();
             conn.Open();
             OracleCommand cmd = new OracleCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "SELECT COUNT(GRANTED_ROLE) FROM DBA_USERS U LEFT JOIN DBA_ROLE_PRIVS DRP ON U.USERNAME = DRP.GRANTEE WHERE U.USERNAME = :username AND GRANTED_ROLE = :role ";
+            cmd.CommandText = "SELECT COUNT(GRANTED_ROLE) FROM SYS.DBA_USERS U LEFT JOIN SYS.DBA_ROLE_PRIVS DRP ON U.USERNAME = DRP.GRANTEE WHERE U.USERNAME = :username AND GRANTED_ROLE = :role ";
             cmd.Parameters.Add("username", username);
             cmd.Parameters.Add("role", role);
             int count = Convert.ToInt32(cmd.ExecuteScalar());
@@ -38,7 +39,14 @@ namespace DAO
             {
                 return true;
             }
+            MessageBox.Show($"So tra ve {count}");
             return false;
+        }
+
+        public static OracleConnection GetPDBConnection(string username, string password)
+        {
+            string newStringConnection = $@"DATA SOURCE=localhost:1521/CAMPUSPDB;PASSWORD={password};USER ID={username}";
+            return new OracleConnection(newStringConnection);
         }
     }
 

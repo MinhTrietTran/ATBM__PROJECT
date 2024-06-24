@@ -17,6 +17,11 @@ namespace UsersManagement
     public partial class GIAOVU_UI : Form
     {
 
+        // Get data tu login
+        public string username { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
+
         //public static OracleConnection conNow = Login.con;
         public bool IsWithinFirstFourteenDays(DateTime currentDate)
         {
@@ -72,39 +77,39 @@ namespace UsersManagement
 
         private void getSINHVIEN_Click(object sender, EventArgs e)
         {  
-            sinhvienDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.SINHVIEN");
+            sinhvienDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.SINHVIEN", username, password);
         }
 
         private void getDONVI_Click(object sender, EventArgs e)
         {
-            donviDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.DONVI");
+            donviDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.DONVI", username, password);
         }
 
         private void getHOCPHAN_Click(object sender, EventArgs e)
         {
-            hocphanDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.HOCPHAN");
+            hocphanDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.HOCPHAN", username, password);
         }
 
         private void getKHMO_Click(object sender, EventArgs e)
         {
-            khmoDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.KHMO");
+            khmoDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.KHMO", username, password);
         }
         private void getPHANCONG_Click(object sender, EventArgs e)
         {
             capnhatpc_button.Enabled = false;
-            phancongDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.PHANCONG");
+            phancongDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.PHANCONG", username, password);
         }
         
         private void getPHANCONG_for_update_Click(object sender, EventArgs e)
         {
             capnhatpc_button.Enabled = true;
-            phancongDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.UV_SELPHANCONG");
+            phancongDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_SELPHANCONG", username, password);
         }
 
         private void getDANGKY_Click(object sender, EventArgs e)
         {
-            //dangkyDGV.DataSource = modify.GetDataTable("SELECT* FROM C##ADMIN.UV_SELDANGKY", conNow);
-            dangkyDGV.DataSource = modify.LoadTableSys("SELECT* FROM C##ADMIN.UV_SELDANGKY_4TEST");
+            //dangkyDGV.DataSource = modify.GetDataTable("SELECT* FROM CAMPUSADMIN.UV_SELDANGKY", conNow);
+            dangkyDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_SELDANGKY_4TEST", username, password);
         }
 
         private void donviDGV_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -163,8 +168,8 @@ namespace UsersManagement
 
         private void themsv_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"INSERT INTO C##ADMIN.SINHVIEN (MASV, HOTEN, PHAI, NGSINH, ĐCHI, DT, MACT, MANGANH, SOTCTL, ĐTBTL) VALUES (:MASV, :HOTEN, :GIOITINH, TO_DATE(:NGSINH, 'YYYY-MM-DD'), :DCHI, :DT, :MACT, :MANGANH, :SOTCTL, :DTBTL)";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"INSERT INTO CAMPUSADMIN.SINHVIEN (MASV, HOTEN, PHAI, NGSINH, ĐCHI, DT, MACT, MANGANH, SOTCTL, DTBTL) VALUES (:MASV, :HOTEN, :GIOITINH, TO_DATE(:NGSINH, 'YYYY-MM-DD'), :DCHI, :DT, :MACT, :MANGANH, :SOTCTL, :DTBTL)";
             try
             {
                 using (OracleCommand command = new OracleCommand(strsql, conNow))
@@ -196,8 +201,8 @@ namespace UsersManagement
         private void capnhatsv_button_Click(object sender, EventArgs e)
         {
             
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"UPDATE C##ADMIN.SINHVIEN SET HOTEN = :HOTEN, PHAI = :GIOITINH, NGSINH = TO_DATE(:NGSINH, 'DD-MM-YYYY'), ĐCHI = :DCHI, DT = :DT, MACT = :MACT, MANGANH = :MANGANH WHERE MASV = :MASV ";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"UPDATE CAMPUSADMIN.SINHVIEN SET HOTEN = :HOTEN, PHAI = :GIOITINH, NGSINH = TO_DATE(:NGSINH, 'DD-MM-YYYY'), DCHI = :DCHI, DT = :DT, MACT = :MACT, MANGANH = :MANGANH WHERE MASV = :MASV ";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -228,8 +233,8 @@ namespace UsersManagement
 
         private void themdv_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"INSERT INTO C##ADMIN.DONVI (MADV, TENDV, TRGDV) VALUES (:MADV, :TENDV, :TRGDV)";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"INSERT INTO CAMPUSADMIN.DONVI (MADV, TENDV, TRGDV) VALUES (:MADV, :TENDV, :TRGDV)";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -252,8 +257,8 @@ namespace UsersManagement
 
         private void capnhatdv_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"UPDATE C##ADMIN.DONVI SET TENĐV = :TENDV, TRGĐV = :TRGDV WHERE MAĐV = :MADV";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"UPDATE CAMPUSADMIN.DONVI SET TENDV = :TENDV, TRGDV = :TRGDV WHERE MADV = :MADV";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -276,8 +281,8 @@ namespace UsersManagement
 
         private void themhp_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"INSERT INTO C##ADMIN.HOCPHAN (MAHP, TENHP, SOTC, STLT, STTH, SOSVTĐ, MAĐV) VALUES (:MAHP, :TENHP, :SOTC, :STLT, :STTH, :SOSVTĐ, :MAĐV)";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"INSERT INTO CAMPUSADMIN.HOCPHAN (MAHP, TENHP, SOTC, STLT, STTH, SOSVTD, MADV) VALUES (:MAHP, :TENHP, :SOTC, :STLT, :STTH, :SOSVTD, :MADV)";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -287,8 +292,8 @@ namespace UsersManagement
                     cmd.Parameters.Add("SOTC", OracleDbType.Int32).Value = int.Parse(sotctl_textbox.Text);
                     cmd.Parameters.Add("STLT", OracleDbType.Int32).Value = int.Parse(stlt_textbox.Text);
                     cmd.Parameters.Add("STTH", OracleDbType.Int32).Value = int.Parse(stth_textbox.Text);
-                    cmd.Parameters.Add("SOSVTĐ", OracleDbType.Int32).Value = int.Parse(sosvtd_textbox.Text);
-                    cmd.Parameters.Add(new OracleParameter("MAĐV", OracleDbType.Varchar2, remadv_textbox.Text, System.Data.ParameterDirection.Input));
+                    cmd.Parameters.Add("SOSVTD", OracleDbType.Int32).Value = int.Parse(sosvtd_textbox.Text);
+                    cmd.Parameters.Add(new OracleParameter("MADV", OracleDbType.Varchar2, remadv_textbox.Text, System.Data.ParameterDirection.Input));
 
                     cmd.ExecuteNonQuery();
                     OracleCommand cmdCommit = new OracleCommand("COMMIT", conNow);
@@ -304,8 +309,8 @@ namespace UsersManagement
 
         private void capnhathp_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"UPDATE C##ADMIN.HOCPHAN SET TENHP = :TENHP, SOTC = :SOTC, STLT = :STLT, STTH = :STTH, SOSVTĐ = :SOSVTĐ, MAĐV = :MAĐV WHERE MAHP = :MAHP";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"UPDATE CAMPUSADMIN.HOCPHAN SET TENHP = :TENHP, SOTC = :SOTC, STLT = :STLT, STTH = :STTH, SOSVTD = :SOSVTD, MADV = :MADV WHERE MAHP = :MAHP";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -314,8 +319,8 @@ namespace UsersManagement
                     cmd.Parameters.Add(new OracleParameter("SOTC", sotc_textbox.Text));
                     cmd.Parameters.Add(new OracleParameter("STLT", stlt_textbox.Text));
                     cmd.Parameters.Add(new OracleParameter("STTH", stth_textbox.Text));
-                    cmd.Parameters.Add(new OracleParameter("SOSVTĐ", sosvtd_textbox.Text));
-                    cmd.Parameters.Add(new OracleParameter("MAĐV", remadv_textbox.Text));
+                    cmd.Parameters.Add(new OracleParameter("SOSVTD", sosvtd_textbox.Text));
+                    cmd.Parameters.Add(new OracleParameter("MADV", remadv_textbox.Text));
                     cmd.Parameters.Add(new OracleParameter("MAHP", mahp.Text));
 
                     cmd.ExecuteNonQuery();
@@ -332,8 +337,8 @@ namespace UsersManagement
 
         private void themkhmo_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"INSERT INTO C##ADMIN.KHMO (MAHP, HK, NAM, MACT) VALUES (:MAHP, :HOCKY, :NAM, :MACT)";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"INSERT INTO CAMPUSADMIN.KHMO (MAHP, HK, NAM, MACT) VALUES (:MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -357,8 +362,8 @@ namespace UsersManagement
 
         private void capnhatkhmo_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"UPDATE C##ADMIN.KHMO SET HK = :HOCKY, NAM = :NAM, MACT = :MACT WHERE MAHP = :MAHP";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"UPDATE CAMPUSADMIN.KHMO SET HK = :HOCKY, NAM = :NAM, MACT = :MACT WHERE MAHP = :MAHP";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -387,8 +392,8 @@ namespace UsersManagement
 
         private void capnhatpc_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"UPDATE C##ADMIN.PHANCONG SET HK = :HOCKY, NAM = :NAM, MACT = :MACT WHERE MAGV = :MAGV AND MAHP = :MAHP";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"UPDATE CAMPUSADMIN.PHANCONG SET HK = :HOCKY, NAM = :NAM, MACT = :MACT WHERE MAGV = :MAGV AND MAHP = :MAHP";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -421,8 +426,8 @@ namespace UsersManagement
             else
             {
                 
-                OracleConnection conNow = Connection.GetOracleConnection();
-                string strsql = $"DELETE C##ADMIN.DANGKY WHERE  MASV = :MASV AND MAGV = :MAGV AND MAHP = :MAHP AND HK = :HOCKY AND NAM = :NAM AND MACT = :MACT";
+                OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+                string strsql = $"DELETE CAMPUSADMIN.DANGKY WHERE  MASV = :MASV AND MAGV = :MAGV AND MAHP = :MAHP AND HK = :HOCKY AND NAM = :NAM AND MACT = :MACT";
                 try
                 {
                     DataGridViewRow selectedRow = dangkyDGV.SelectedRows[0];
@@ -474,8 +479,8 @@ namespace UsersManagement
 
         private void themdk_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
-            string strsql = $"INSERT INTO C##ADMIN.DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES (:MASV, :MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            string strsql = $"INSERT INTO CAMPUSADMIN.DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES (:MASV, :MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -530,9 +535,39 @@ namespace UsersManagement
 
         }
 
+        // Flow
         private void dangxuat_button_Click_1(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void logoutBtn_Click(object sender, EventArgs e)
+        {
+            Login obj = new Login();
+            obj.Show();
+            this.Hide();
+        }
+
+        private void getTHONGBAO_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> nofi = modify.LoadTableNofi("SELECT * FROM ADMIN_OLS.THONGBAO", username, password);
+
+                if (nofi.Count > 0)
+                {
+                    string message = string.Join(Environment.NewLine, nofi);
+                    MessageBox.Show(message, "Notification");
+                }
+                else
+                {
+                    MessageBox.Show("Don't have any notifiaction", "Thông báo");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error");
+            }
         }
     }
 }

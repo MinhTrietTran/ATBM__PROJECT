@@ -32,7 +32,7 @@ namespace UsersManagement
         {
             try
             {
-                usersPrivsDGV.DataSource = privileges.LoadAllusersInTabLevel(username,password, role);
+                usersPrivsDGV.DataSource = privileges.LoadAllusersInTabLevel(username,password);
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace UsersManagement
         {
             try
             {
-                usersPrivsDGV.DataSource = privileges.LoadAllusersInColLevel(username, password, role);
+                usersPrivsDGV.DataSource = privileges.LoadAllusersInColLevel(username, password);
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace UsersManagement
         {
             try
             {
-                rolesPrivsDGV.DataSource = privileges.LoadAllRolesInTabLevel(username, password, role);
+                rolesPrivsDGV.DataSource = privileges.LoadAllRolesInTabLevel(username, password);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace UsersManagement
         {
             try
             {
-                rolesPrivsDGV.DataSource = privileges.LoadAllRolesInColLevel(username,password, role);
+                rolesPrivsDGV.DataSource = privileges.LoadAllRolesInColLevel(username,password);
             }
             catch (Exception ex)
             {
@@ -154,11 +154,11 @@ namespace UsersManagement
             }
             else if (toTabCheckBox1.Checked == true)
             {
-                usersPrivsDGV.DataSource = privileges.FilterUsersInTabLevel(userName, username, password, role);
+                usersPrivsDGV.DataSource = privileges.FilterUsersInTabLevel(userName, username, password);
             }
             else
             {
-                usersPrivsDGV.DataSource = privileges.FilterUsersInColLevel(userName, username, password, role);
+                usersPrivsDGV.DataSource = privileges.FilterUsersInColLevel(userName, username, password);
             }
         }
 
@@ -185,11 +185,11 @@ namespace UsersManagement
             }
             else if (totableCheckBox2.Checked == true)
             {
-                rolesPrivsDGV.DataSource = privileges.FilterRolesInTabLevel(roleName, username, password, role);
+                rolesPrivsDGV.DataSource = privileges.FilterRolesInTabLevel(roleName, username, password);
             }
             else
             {
-                rolesPrivsDGV.DataSource = privileges.FilterRolesInColLevel(roleName, username, password, role);
+                rolesPrivsDGV.DataSource = privileges.FilterRolesInColLevel(roleName, username, password);
             }
         }
 
