@@ -171,7 +171,8 @@ namespace UsersManagement
         private void themsv_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
-            string strsql = $"INSERT INTO CAMPUSADMIN.SINHVIEN (MASV, HOTEN, PHAI, NGSINH, ĐCHI, DT, MACT, MANGANH, SOTCTL, DTBTL) VALUES (:MASV, :HOTEN, :GIOITINH, TO_DATE(:NGSINH, 'YYYY-MM-DD'), :DCHI, :DT, :MACT, :MANGANH, :SOTCTL, :DTBTL)";
+            conNow.Open();
+            string strsql = $"INSERT INTO CAMPUSADMIN.SINHVIEN (MASV, HOTEN, PHAI, NGSINH, DCHI, DT, MACT, MANGANH, SOTCTL, DTBTL) VALUES (:MASV, :HOTEN, :GIOITINH, TO_DATE(:NGSINH, 'YYYY-MM-DD'), :DCHI, :DT, :MACT, :MANGANH, :SOTCTL, :DTBTL)";
             try
             {
                 using (OracleCommand command = new OracleCommand(strsql, conNow))
@@ -191,20 +192,22 @@ namespace UsersManagement
                     OracleCommand cmdCommit = new OracleCommand("COMMIT", conNow);
                     cmdCommit.ExecuteNonQuery();
                 }
+
    
             }
             catch (OracleException ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
             }
+            conNow.Close();
         }
 
         private void capnhatsv_button_Click(object sender, EventArgs e)
         {
             
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
-            string strsql = $"UPDATE CAMPUSADMIN.SINHVIEN SET HOTEN = :HOTEN, PHAI = :GIOITINH, NGSINH = TO_DATE(:NGSINH, 'DD-MM-YYYY'), DCHI = :DCHI, DT = :DT, MACT = :MACT, MANGANH = :MANGANH WHERE MASV = :MASV ";
+            conNow.Open();
+            string strsql = $"UPDATE CAMPUSADMIN.SINHVIEN SET HOTEN = :HOTEN, PHAI = :GIOITINH, NGSINH = TO_DATE(:NGSINH, 'DD-MM-YYYY'), DCHI = :DCHI, DT = :DT, MACT = :MACT, MANGANH = :MANGANH, SOTCTL = :SOTCTL, DTBTL = :DTBTL WHERE MASV = :MASV ";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
@@ -216,8 +219,8 @@ namespace UsersManagement
                     cmd.Parameters.Add(new OracleParameter("DT", sdt_textbox.Text.ToString()));
                     cmd.Parameters.Add(new OracleParameter("MACT", mact_textbox.Text.ToString()));
                     cmd.Parameters.Add(new OracleParameter("MANGANH", manganh_textbox.Text.ToString()));
-                    cmd.Parameters.Add(new OracleParameter("SOTCTL", sotctl_textbox.Text));
-                    cmd.Parameters.Add(new OracleParameter("DTBTL", dtbtl_textb.Text));
+                    cmd.Parameters.Add("SOTCTL", OracleDbType.Int32).Value = int.Parse(sotctl_textbox.Text);
+                    cmd.Parameters.Add("DTBTL", OracleDbType.Decimal).Value = decimal.Parse(dtbtl_textb.Text);
                     cmd.Parameters.Add(new OracleParameter("MASV", masv_textbox.Text));
 
                         cmd.ExecuteNonQuery();
@@ -229,19 +232,20 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
             }
+            conNow.Close();
         }
 
         private void themdv_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"INSERT INTO CAMPUSADMIN.DONVI (MADV, TENDV, TRGDV) VALUES (:MADV, :TENDV, :TRGDV)";
             try
             {
                 using (OracleCommand cmd = new OracleCommand(strsql, conNow))
                 {
-                    cmd.Parameters.Add(new OracleParameter("MADV", OracleDbType.Varchar2, mact_textbox.Text, System.Data.ParameterDirection.Input));
+                    cmd.Parameters.Add(new OracleParameter("MADV", OracleDbType.Varchar2, madv_textbox.Text, System.Data.ParameterDirection.Input));
                     cmd.Parameters.Add(new OracleParameter("TENDV", OracleDbType.Varchar2, tendv_textbox.Text, System.Data.ParameterDirection.Input));
                     cmd.Parameters.Add(new OracleParameter("TRGDV", OracleDbType.Varchar2, trgdv_textbox.Text, System.Data.ParameterDirection.Input));
 
@@ -253,13 +257,14 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
             }
+            conNow.Close();
         }
 
         private void capnhatdv_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"UPDATE CAMPUSADMIN.DONVI SET TENDV = :TENDV, TRGDV = :TRGDV WHERE MADV = :MADV";
             try
             {
@@ -267,8 +272,7 @@ namespace UsersManagement
                 {
                     cmd.Parameters.Add(new OracleParameter("TENDV", tendv_textbox.Text));
                     cmd.Parameters.Add(new OracleParameter("TRGDV", trgdv_textbox.Text));
-                    cmd.Parameters.Add(new OracleParameter("MADV", mact_textbox.Text));
-
+                    cmd.Parameters.Add(new OracleParameter("MADV", madv_textbox.Text));
                     cmd.ExecuteNonQuery();
                     OracleCommand cmdCommit = new OracleCommand("COMMIT", conNow);
                     cmdCommit.ExecuteNonQuery();
@@ -277,13 +281,15 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+               
             }
+            conNow.Close();
         }
 
         private void themhp_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"INSERT INTO CAMPUSADMIN.HOCPHAN (MAHP, TENHP, SOTC, STLT, STTH, SOSVTD, MADV) VALUES (:MAHP, :TENHP, :SOTC, :STLT, :STTH, :SOSVTD, :MADV)";
             try
             {
@@ -291,7 +297,7 @@ namespace UsersManagement
                 {
                     cmd.Parameters.Add(new OracleParameter("MAHP", OracleDbType.Varchar2, mahp_textbox.Text, System.Data.ParameterDirection.Input));
                     cmd.Parameters.Add(new OracleParameter("TENHP", OracleDbType.Varchar2, tenhp_textbox.Text, System.Data.ParameterDirection.Input));
-                    cmd.Parameters.Add("SOTC", OracleDbType.Int32).Value = int.Parse(sotctl_textbox.Text);
+                    cmd.Parameters.Add("SOTC", OracleDbType.Int32).Value = int.Parse(sotc_textbox.Text);
                     cmd.Parameters.Add("STLT", OracleDbType.Int32).Value = int.Parse(stlt_textbox.Text);
                     cmd.Parameters.Add("STTH", OracleDbType.Int32).Value = int.Parse(stth_textbox.Text);
                     cmd.Parameters.Add("SOSVTD", OracleDbType.Int32).Value = int.Parse(sosvtd_textbox.Text);
@@ -305,13 +311,14 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
             }
+            conNow.Close();
         }
 
         private void capnhathp_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"UPDATE CAMPUSADMIN.HOCPHAN SET TENHP = :TENHP, SOTC = :SOTC, STLT = :STLT, STTH = :STTH, SOSVTD = :SOSVTD, MADV = :MADV WHERE MAHP = :MAHP";
             try
             {
@@ -323,7 +330,7 @@ namespace UsersManagement
                     cmd.Parameters.Add(new OracleParameter("STTH", stth_textbox.Text));
                     cmd.Parameters.Add(new OracleParameter("SOSVTD", sosvtd_textbox.Text));
                     cmd.Parameters.Add(new OracleParameter("MADV", remadv_textbox.Text));
-                    cmd.Parameters.Add(new OracleParameter("MAHP", mahp.Text));
+                    cmd.Parameters.Add(new OracleParameter("MAHP", mahp_textbox.Text));
 
                     cmd.ExecuteNonQuery();
                     OracleCommand cmdCommit = new OracleCommand("COMMIT", conNow);
@@ -333,13 +340,15 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+                
             }
+            conNow.Close();
         }
 
         private void themkhmo_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"INSERT INTO CAMPUSADMIN.KHMO (MAHP, HK, NAM, MACT) VALUES (:MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
@@ -358,13 +367,15 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+               
             }
+            conNow.Close();
         }
 
         private void capnhatkhmo_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"UPDATE CAMPUSADMIN.KHMO SET HK = :HOCKY, NAM = :NAM, MACT = :MACT WHERE MAHP = :MAHP";
             try
             {
@@ -383,8 +394,9 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+                
             }
+            conNow.Close();
         }
 
         private void label15_Click(object sender, EventArgs e)
@@ -395,6 +407,7 @@ namespace UsersManagement
         private void capnhatpc_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"UPDATE CAMPUSADMIN.PHANCONG SET HK = :HOCKY, NAM = :NAM, MACT = :MACT WHERE MAGV = :MAGV AND MAHP = :MAHP";
             try
             {
@@ -414,8 +427,9 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+               
             }
+            conNow.Close();
         }
 
         private void xoadk_button_Click(object sender, EventArgs e)
@@ -429,6 +443,7 @@ namespace UsersManagement
             {
                 
                 OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+                conNow.Open();
                 string strsql = $"DELETE CAMPUSADMIN.DANGKY WHERE  MASV = :MASV AND MAGV = :MAGV AND MAHP = :MAHP AND HK = :HOCKY AND NAM = :NAM AND MACT = :MACT";
                 try
                 {
@@ -450,8 +465,9 @@ namespace UsersManagement
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    return;
+           
                 }
+                conNow.Close();
             }
         }
 
@@ -482,6 +498,7 @@ namespace UsersManagement
         private void themdk_button_Click(object sender, EventArgs e)
         {
             OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"INSERT INTO CAMPUSADMIN.DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES (:MASV, :MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
@@ -503,8 +520,9 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+
             }
+            conNow.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -578,7 +596,7 @@ namespace UsersManagement
             {
                 string newsdt = newPhoneNumber.Text.ToString();
                 string query = $"UPDATE CAMPUSADMIN.NHANSU SET DT = '{newsdt}' WHERE MANV = '{username}'";
-                modify.ExecuteQueryByUser(query, "CAMPUSADMIN", "1");
+                modify.ExecuteQueryByUser(query, "CAMPUSADMIN", "ADMIN123");
                 //MessageBox.Show("Thay đổi số điện thoại thành công");
                 MessageBox.Show("Change phone number successfully", "Thông báo");
                 getUSER_Click(sender, e);

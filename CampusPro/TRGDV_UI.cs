@@ -109,7 +109,7 @@ namespace UsersManagement
             xoapc_button.Enabled = true;
             capnhatpc_button.Enabled = true;
 
-            phancongDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_SELPHANCONG_TRGDV", username, password);
+            phancongDGV.DataSource = modify.LoadTableByUser("SELECT* FROM CAMPUSADMIN.UV_SELPHANCONG_TRUONGDONVI", username, password);
         }
 
         private void getDANGKY_Click(object sender, EventArgs e)
@@ -166,6 +166,8 @@ namespace UsersManagement
         private void capnhatpc_button_Click(object sender, EventArgs e)
         {
             AddPHANCONG_TRGDV addpc = new AddPHANCONG_TRGDV();
+            addpc.username = username;
+            addpc.password = password; 
             addpc.Show(this);
             
         }
@@ -180,7 +182,8 @@ namespace UsersManagement
             else
             {
                 
-                OracleConnection conNow = Connection.GetOracleConnection();
+                OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+                conNow.Open();
                 string strsql = $"DELETE CAMPUSADMIN.DANGKY WHERE  MASV = :MASV AND MAGV = :MAGV AND MAHP = :MAHP AND HK = :HOCKY AND NAM = :NAM AND MACT = :MACT";
                 try
                 {
@@ -202,8 +205,9 @@ namespace UsersManagement
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    return;
+                   
                 }
+                conNow.Close();
             }
         }
 
@@ -233,7 +237,8 @@ namespace UsersManagement
 
         private void themdk_button_Click(object sender, EventArgs e)
         {
-            OracleConnection conNow = Connection.GetOracleConnection();
+            OracleConnection conNow = LoginDAO.GetAppConnection(username, password);
+            conNow.Open();
             string strsql = $"INSERT INTO CAMPUSADMIN.DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES (:MASV, :MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
@@ -255,8 +260,9 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+               
             }
+            conNow.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -282,16 +288,30 @@ namespace UsersManagement
         // capnhatpc_Click
         private void button2_Click(object sender, EventArgs e)
         {
-            string strsql = $"UPDATE CAMPUSADMIN.PHANCONG SET HK = {pc_hk_textbox.Text}, NAM = {pc_nam_textbox.Text}, MACT = {pc_mact_textbox.Text} WHERE MAGV = {pc_magv_textbox.Text} AND MAHP = {pc_mahp_textbox.Text}";
+            OracleConnection connNow = LoginDAO.GetAppConnection(username, password);
+            connNow.Open();
+            string strsql = $"UPDATE CAMPUSADMIN.PHANCONG SET HK = :HOCKY, NAM = :NAM, MACT = :MACT WHERE MAGV = :MAGV AND MAHP = :MAHP";
             try
             {
-                modify.ExecuteQuery(strsql);
+                using (OracleCommand cmd = new OracleCommand(strsql, connNow))
+                {
+                    cmd.Parameters.Add(new OracleParameter("HOCKY", pc_hk_textbox.Text));
+                    cmd.Parameters.Add(new OracleParameter("NAM", pc_nam_textbox.Text));
+                    cmd.Parameters.Add(new OracleParameter("MACT", pc_mact_textbox.Text));
+                    cmd.Parameters.Add(new OracleParameter("MAGV", pc_magv_textbox.Text));
+                    cmd.Parameters.Add(new OracleParameter("MAHP", pc_mahp_textbox.Text));
+
+                    cmd.ExecuteNonQuery();
+                    OracleCommand cmdCommit = new OracleCommand("COMMIT", connNow);
+                    cmdCommit.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+               
             }
+            connNow.Close();
         }
 
         private void xoapc_button_Click(object sender, EventArgs e)
@@ -303,21 +323,32 @@ namespace UsersManagement
             }
             else
             {
-                DataGridViewRow selectedRow = phancongDGV.SelectedRows[0];
 
-                string strsql = $"DELETE CAMPUSADMIN.PHANCONG WHERE  MAGV = {selectedRow.Cells[0].Value} AND MAHP = {selectedRow.Cells[1].Value} AND HK = {selectedRow.Cells[2].Value} AND NAM = {selectedRow.Cells[3].Value} AND MACT = {selectedRow.Cells[4].Value}";
+                OracleConnection conNow = LoginDAO.GetAppConnection(username, password); 
+                conNow.Open();
+                string strsql = $"DELETE CAMPUSADMIN.PHANCONG WHERE  MAGV = :MAGV AND MAHP = :MAHP AND HK = :HOCKY AND NAM = :NAM AND MACT = :MACT";
                 try
                 {
-            
-                    modify.ExecuteQuery(strsql);
-                    modify.ExecuteQuery("COMMIT");
-                    MessageBox.Show("Successfully delete");
+                    DataGridViewRow selectedRow = phancongDGV.SelectedRows[0];
+                    using (OracleCommand cmd = new OracleCommand(strsql, conNow))
+                    {
+                        cmd.Parameters.Add(new OracleParameter("MAGV", selectedRow.Cells[0].Value));
+                        cmd.Parameters.Add(new OracleParameter("MAHP", selectedRow.Cells[1].Value));
+                        cmd.Parameters.Add(new OracleParameter("HOCKY", selectedRow.Cells[2].Value));
+                        cmd.Parameters.Add(new OracleParameter("NAM", selectedRow.Cells[3].Value)); 
+                        cmd.Parameters.Add(new OracleParameter("MACT", selectedRow.Cells[4].Value));
+
+                        cmd.ExecuteNonQuery();
+                        modify.ExecuteQueryByUser("COMMIT", username, password);
+                        MessageBox.Show("Successfully delete");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    return;
+                  
                 }
+                conNow.Close();
             }
         }
 
@@ -382,7 +413,7 @@ namespace UsersManagement
             {
                 string newsdt = newPhoneNumber.Text.ToString();
                 string query = $"UPDATE CAMPUSADMIN.NHANSU SET DT = '{newsdt}' WHERE MANV = '{username}'";
-                modify.ExecuteQueryByUser(query, "CAMPUSADMIN", "1");
+                modify.ExecuteQueryByUser(query, "CAMPUSADMIN", "ADMIN123");
                 //MessageBox.Show("Thay đổi số điện thoại thành công");
                 MessageBox.Show("Change phone number successfully", "Thông báo");
                 getUSER_Click(sender, e);

@@ -16,6 +16,9 @@ namespace UsersManagement
     public partial class AddPHANCONG_TRGDV : Form
     {
         Modify modify = new Modify();
+        public string username { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
         public AddPHANCONG_TRGDV()
         {
             InitializeComponent();
@@ -23,8 +26,10 @@ namespace UsersManagement
 
         private void AddPHANCONG_TRGDV_Load(object sender, EventArgs e)
         {
-            string strsql = $"SELECT MAHP FROM CAMPUSADMIN.HOCPHAN WHERE MADV IN (SELECT MAĐV FROM CAMPUSADMIN.DONVI WHERE TRGDV = USER)";
-            OracleCommand cmd = new OracleCommand(strsql, Connection.GetOracleConnection());
+            string strsql = $"SELECT MAHP FROM CAMPUSADMIN.HOCPHAN WHERE MADV IN (SELECT MADV FROM CAMPUSADMIN.DONVI WHERE TRGDV = SYS_CONTEXT('USERENV', 'SESSION_USER'))";
+            OracleConnection connNow = LoginDAO.GetAppConnection(username, password);
+            connNow.Open();
+            OracleCommand cmd = new OracleCommand(strsql, connNow);
 
             OracleDataReader reader = cmd.ExecuteReader();
 
@@ -40,20 +45,22 @@ namespace UsersManagement
             {
                 addpc_mahp_cbbox.SelectedIndex = 0;
             }
-
+            connNow.Close();
         }
 
         private void addpc_them_button_Click(object sender, EventArgs e)
         {
+            OracleConnection connNow = LoginDAO.GetAppConnection(username, password);
             string strsql = $"INSERT INTO CAMPUSADMIN.PHANCONG (MAGV, MAHP, HK, NAM, MACT) VALUES (:MAGV, :MAHP, :HOCKY, :NAM, :MACT)";
             try
             {
+                connNow.Open();
                 if (!addpc_mahp_cbbox.Items.Contains(addpc_mahp_cbbox.Text))
                 {
                     // Throw an exception
                     throw new Exception("Invalid MA HP!");
                 }
-                using (OracleCommand cmd = new OracleCommand(strsql, Connection.GetOracleConnection()))
+                using (OracleCommand cmd = new OracleCommand(strsql, connNow))
                 {
                     cmd.Parameters.Add(new OracleParameter("MAGV", OracleDbType.Varchar2, addpc_magv_textbox.Text, System.Data.ParameterDirection.Input));
                     cmd.Parameters.Add(new OracleParameter("MAHP", OracleDbType.Varchar2, addpc_mahp_cbbox.Text, System.Data.ParameterDirection.Input));
@@ -62,7 +69,7 @@ namespace UsersManagement
                     cmd.Parameters.Add(new OracleParameter("MACT", OracleDbType.Varchar2, addpc_mact_textbox.Text, System.Data.ParameterDirection.Input));
 
                     cmd.ExecuteNonQuery();
-                    OracleCommand cmdCommit = new OracleCommand("COMMIT", Connection.GetOracleConnection());
+                    OracleCommand cmdCommit = new OracleCommand("COMMIT", connNow);
                     cmdCommit.ExecuteNonQuery();
                     this.Hide();
                 }
@@ -70,8 +77,10 @@ namespace UsersManagement
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+                    
             }
+            connNow.Close();    
+            
         }
 
         private void addpc_huy_button_Click(object sender, EventArgs e)
