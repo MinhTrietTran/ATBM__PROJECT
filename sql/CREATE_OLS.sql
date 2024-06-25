@@ -42,17 +42,17 @@ CREATE USER TBM005 IDENTIFIED BY TBM005; --Truong bo mon KHMT co so 2
 CREATE USER GVU001 IDENTIFIED BY GVU001; --Giao vu co so 2
 CREATE USER SVI001 IDENTIFIED BY SVI001; --Sinh vien HTTT Co so 1
 
-CREATE USER NV02 IDENTIFIED BY NV02;    -- Truong khoa
-CREATE USER NV03 IDENTIFIED BY NV03;    -- Truong bo mon co 2
-CREATE USER NV04 IDENTIFIED BY NV04;    -- Truong bo mon HTTT co so 1
-CREATE USER NV05 IDENTIFIED BY NV05;    -- Truong bo mon HTTT co so 2
-CREATE USER NV06 IDENTIFIED BY NV06;    -- Truong bo mon KHMT co so 1
-CREATE USER NV07 IDENTIFIED BY NV07;    -- Truong bo mon KHMT co so 2
-CREATE USER NV08 IDENTIFIED BY NV08;    -- GIAO VU CS2
+CREATE USER NV106 IDENTIFIED BY NV106;    -- Truong khoa
+CREATE USER NV100 IDENTIFIED BY NV100;    -- Truong bo mon co 2
+CREATE USER NV101 IDENTIFIED BY NV101;    -- Truong bo mon HTTT co so 1
+CREATE USER NV102 IDENTIFIED BY NV102;    -- Truong bo mon HTTT co so 2
+CREATE USER NV103 IDENTIFIED BY NV103;    -- Truong bo mon KHMT co so 1
+CREATE USER NV104 IDENTIFIED BY NV104;    -- Truong bo mon KHMT co so 2
+CREATE USER NV091 IDENTIFIED BY NV091;    -- GIAO VU CS2
 CREATE USER SV001 IDENTIFIED BY SV001;  -- Sinh vien HTTT co so 1
 
-GRANT CONNECT TO TKH001, TBM001, TBM002, TBM003, TBM004, TBM005, GVU001, SVI001, NV02, NV03, NV04, NV05, NV06, NV07, NV08, SV001;
-GRANT SELECT ON ADMIN_OLS.THONGBAO TO TKH001, TBM001, TBM002, TBM003, TBM004, TBM005, GVU001, SVI001,  NV02,NV03, NV04, NV05, NV06, NV07, NV08, SV001;
+GRANT CONNECT TO TKH001, TBM001, TBM002, TBM003, TBM004, TBM005, GVU001, SVI001, NV106, NV100, NV101, NV102, NV103, NV104, NV091, SV001;
+
 
 GRANT INHERIT PRIVILEGES ON USER ADMIN_OLS TO LBACSYS;
 GRANT INHERIT PRIVILEGES ON USER SYS TO LBACSYS;
@@ -206,21 +206,21 @@ BEGIN
     SA_USER_ADMIN.SET_USER_LABELS('region_policy','GVU001','GVU:HTTT,CNPM,KHMT,CNTT,TGMT,MMT:CS1,CS2');             -- Giao vu co so 2
     SA_USER_ADMIN.SET_USER_LABELS('region_policy','SVI001','SV:HTTT:CS1');                                          -- Sinh vien HTTT Co so 1
     
-    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV02','TRGK:HTTT,CNPM,KHMT,CNTT,TGMT,MMT:CS1,CS2');              -- Truong khoa doc toan bo thong bao
-    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV04','TRGDV:HTTT,CNPM,KHMT,CNTT,TGMT,MMT:CS1,CS2');             -- Truong don vi doc duoc toan bo thong bao
-    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV03','TRGDV:HTTT:CS1');                                         -- Truong don vi doc duoc thong bao cho HTTT CS1 
-    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV05','TRGDV:HTTT:CS2');                                         -- Truong don vi HTTT co so 2
-    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV06','TRGDV:KHMT:CS1');                                         -- Truong don vi KHMT co so 1
-    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV07','TRGDV:KHMT:CS2');                                         -- Truong don vi KHMT co so 2
-    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV08','GVU:HTTT,CNPM,KHMT,CNTT,TGMT,MMT:CS1,CS2');               -- Giao vu doc toan bo thong bao danh cho giao vu
+    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV106','TRGK:HTTT,CNPM,KHMT,CNTT,TGMT,MMT:CS1,CS2');              -- Truong khoa doc toan bo thong bao
+    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV100','TRGDV:HTTT,CNPM,KHMT,CNTT,TGMT,MMT:CS1,CS2');             -- Truong don vi doc duoc toan bo thong bao
+    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV101','TRGDV:HTTT:CS1');                                         -- Truong don vi doc duoc thong bao cho HTTT CS1 
+    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV102','TRGDV:HTTT:CS2');                                         -- Truong don vi HTTT co so 2
+    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV103','TRGDV:KHMT:CS1');                                         -- Truong don vi KHMT co so 1
+    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV104','TRGDV:KHMT:CS2');                                         -- Truong don vi KHMT co so 2
+    SA_USER_ADMIN.SET_USER_LABELS('region_policy','NV091','GVU:HTTT,CNPM,KHMT,CNTT,TGMT,MMT:CS1,CS2');               -- Giao vu doc toan bo thong bao danh cho giao vu
     SA_USER_ADMIN.SET_USER_LABELS('region_policy','SV001','SV:HTTT:CS1');                                           -- Sinh vien HTTT Co so 1
     
 END; 
-
-COMMIT; 
+COMMIT;
+CONNECT SYS/sys123 AS SYSDBA;
+ALTER SESSION SET CONTAINER = CAMPUSPDB;
+GRANT SELECT ON ADMIN_OLS.THONGBAO TO TKH001, TBM001, TBM002, TBM003, TBM004, TBM005, GVU001, SVI001, NV106, NV100, NV101, NV102, NV103, NV104, NV091, SV001;
 ---------------------------------------------------------------------------------
-
-
 
 
 
