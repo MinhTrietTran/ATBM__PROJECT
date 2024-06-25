@@ -35,6 +35,7 @@ namespace DAO
             return dataTable;
         }
 
+
         public void RevokeRole(string userName, string role)
         {
             string query = $"REVOKE {role} FROM {userName}";
@@ -66,3 +67,7 @@ namespace DAO
         }
     }
 }
+
+
+
+

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="GiangVien_DAO.cs" />
     <Compile Include="LoginDAO.cs" />
     <Compile Include="Modify.cs" />
     <Compile Include="NhanVienCoBan_DAO.cs" />

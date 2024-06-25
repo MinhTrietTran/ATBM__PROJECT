@@ -86,5 +86,10 @@ namespace CampusPro
                 MessageBox.Show($"Lỗi thêm: {ex.Message}");
             }
         }
+
+        private void NhanVienCoBan_UI_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -119,6 +119,21 @@ namespace UsersManagement
                 obj.Show();
                 this.Hide();
             }
+            else if(login.Authenticate(username, password, role) && role == "GIANGVIEN")
+            {
+                // For nhan vien co ban
+                MessageBox.Show("Connected as GIANGVIEN!");
+                GiangVien_UI  obj = new GiangVien_UI();
+
+                // Set qua nhan vien co ban
+                obj.username = username;
+                obj.password = password;
+                obj.role = role;
+
+                // Mo nhan vien co ban
+                obj.Show();
+                this.Hide();
+            }
             else if(login.Authenticate(username, password, role)) // Go to Main form User UI
             {
                 // Form nhan vien

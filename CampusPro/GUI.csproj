@@ -205,6 +205,9 @@
     <EmbeddedResource Include="EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GiangVien_UI.resx">
+      <DependentUpon>GiangVien_UI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GIAOVU_UI.resx">
       <DependentUpon>GIAOVU_UI.cs</DependentUpon>
     </EmbeddedResource>

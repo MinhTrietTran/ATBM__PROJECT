@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GiangVien_BUS.cs" />
     <Compile Include="LoginBUS.cs" />
     <Compile Include="NhanVienCoBan_BUS.cs" />
     <Compile Include="PrivilegesBUS.cs" />
