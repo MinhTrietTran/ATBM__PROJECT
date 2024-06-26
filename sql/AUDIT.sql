@@ -1,0 +1,84 @@
+-- =================STANDARD AUDIT==================
+-- Theo doi hanh vi cua tat ca user tren cac bang
+AUDIT ALL ON CAMPUSADMIN.DANGKY BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.DONVI BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.HOCPHAN BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.KHMO BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.NHANSU BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.PHANCONG BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.SINHVIEN BY ACCESS;
+-- THEO DOI HANH VI CUA TAT CA USER TREN CAC VIEW
+AUDIT ALL ON CAMPUSADMIN.UV_DANGKYBANTHAN BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_INFOR BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_PHANCONG_GV BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_PHANCONG_OF_DONVI BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_PHANCONGBANTHAN BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_SELDANGKY BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_SELDANGKY_4TEST BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_SELPHANCONG BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UV_SELPHANCONG_TRUONGDONVI BY ACCESS;
+
+-- THEO DOI HANH VI CUA TAT CA USER TREN CAC PROCEDURE
+AUDIT ALL ON CAMPUSADMIN.UP_INSPHANCONG_TRGDV BY ACCESS;
+AUDIT ALL ON CAMPUSADMIN.UP_INSPHANCONG_TRUONGDONVI BY ACCESS;
+
+-- THEO DOI HANH VI THANH CONG
+AUDIT ALL WHENEVER SUCCESSFUL;
+-- THEO DOI HANH VI KHONG THANH CONG
+AUDIT ALL WHENEVER NOT SUCCESSFUL;
+
+-- ============= FINE-GRAINED AUDIT=================
+-- Cap nhat diem ma nguoi dung khong phai la gv
+CREATE OR REPLACE FUNCTION AUD_F__TABLE_DANGKY(pTxtUser IN VARCHAR2) 
+RETURN NUMBER
+AS
+  USERROLE VARCHAR2(20);
+BEGIN
+  -- L?y vai trò c?a ng??i dùng t? b?ng NHANSU
+  SELECT VAITRO INTO USERROLE FROM CAMPUSADMIN.NHANSU WHERE MANV = pTxtUser;
+
+  -- Ki?m tra n?u vai trò là 'GIANGVIEN'
+  IF USERROLE = 'GIANGVIEN' THEN
+    RETURN 1;
+  ELSE
+    RETURN 0;
+  END IF;
+
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    -- Tr??ng h?p không tìm th?y ng??i dùng trong b?ng NHANSU
+    RETURN 0;
+END AUD_F__TABLE_DANGKY;
+/
+
+BEGIN
+  DBMS_FGA.add_policy(
+    object_schema   => 'CAMPUSADMIN',
+    object_name     => 'DANGKY',
+    policy_name     => 'audit_diemso_capnhat',
+    audit_condition => 'CAMPUSADMIN.AUD_F__TABLE_DANGKY(SYS_CONTEXT(''USERENV'', ''SESSION_USER'')) = 0',
+    audit_column    => 'DIEMTH, DIEMQT, DIEMCK, DIEMTK',
+    statement_types => 'UPDATE',
+    handler_schema  => NULL,
+    handler_module  => NULL,
+    enable          => TRUE,
+    audit_trail     => dbms_fga.db + dbms_fga.extended);
+END;
+/
+
+-- nhan su coi phu cap cua nhan su khac
+BEGIN
+  DBMS_FGA.add_policy(
+    object_schema   => 'CAMPUSADMIN',
+    object_name     => 'NHANSU',
+    policy_name     => 'audit_phucap_read',
+    audit_condition => 'CAMPUSADMIN.AUD_F__TABLE_DANGKY(SYS_CONTEXT(''USERENV'', ''SESSION_USER'')) = 0',
+    audit_column    => 'PHUCAP',
+    statement_types => 'SELECT',
+    handler_schema  => NULL,
+    handler_module  => NULL,
+    enable          => TRUE,
+    audit_trail     => dbms_fga.db + dbms_fga.extended);
+END;
+/
+
