@@ -1,12 +1,14 @@
 CREATE ROLE SINHVIEN;
 -- Cấp quyền xem danh sách học phần và kế hoạch mở môn cho vai trò sinh viên
-GRANT SELECT ON HOCPHAN TO SINHVIEN;
-GRANT SELECT ON KHMO TO SINHVIEN;
+GRANT SELECT ON CAMPUSADMIN.HOCPHAN TO SINHVIEN;
+GRANT SELECT ON CAMPUSADMIN.KHMO TO SINHVIEN;
+GRANT SELECT ON CAMPUSADMIN.SINHVIEN TO SINHVIEN;
+GRANT UPDATE(DCHI,DT) TO SINHVIEN;
 
 -- Cấp quyền thêm và xóa dữ liệu đăng ký học phần cho vai trò sinh viên
 GRANT INSERT, DELETE ON DANGKY TO SINHVIEN;
 
-CREATE USER sinh_vien IDENTIFIED BY password;
+CREATE USER sinh_vien IDENTIFIED BY 1;
 GRANT SINHVIEN TO sinh_vien;
 
 CREATE OR REPLACE FUNCTION sinhvien_policy_func (schema_name IN VARCHAR2, table_name IN VARCHAR2)
@@ -19,10 +21,9 @@ BEGIN
 END;
 /
 
-
 BEGIN
   DBMS_RLS.ADD_POLICY (
-    object_schema   => 'sinh_vien',
+    object_schema   => 'CAMPUSADMIN',
     object_name     => 'SINHVIEN',
     policy_name     => 'sinhvien_policy',
     function_schema => 'sinh_vien',
@@ -39,17 +40,18 @@ RETURN VARCHAR2 IS
 BEGIN
   -- Sinh viên chỉ được thêm, xóa dữ liệu đăng ký học phần liên quan đến chính mình và không được chỉnh sửa điểm
   v_predicate := 'MASV = SYS_CONTEXT(''USERENV'', ''SESSION_USER'') AND ' ||
-                 'NOT EXISTS (SELECT 1 FROM KHMO WHERE DANGKY.MAHP = KHMO.MAHP AND DANGKY.HK = KHMO.HK AND DANGKY.NAM = KHMO.NAM AND KHMO.MACT = DANGKY.MACT)';
+                 'NOT EXISTS (SELECT 1 FROM KHMO WHERE DANGKY.MAHP = KHMO.MAHP 
+                 AND DANGKY.HK = KHMO.HK AND DANGKY.NAM = KHMO.NAM AND KHMO.MACT = DANGKY.MACT)';
   RETURN v_predicate;
 END;
 /
 
 BEGIN
   DBMS_RLS.ADD_POLICY (
-    object_schema   => 'YOUR_SCHEMA',
+    object_schema   => 'CAMPUSADMIN',
     object_name     => 'DANGKY',
     policy_name     => 'dangky_policy',
-    function_schema => 'YOUR_SCHEMA',
+    function_schema => 'sinh_vien',
     policy_function => 'dangky_policy_func',
     statement_types => 'INSERT, DELETE'
   );
@@ -91,15 +93,15 @@ END;
 /
 
 -- Kiểm tra quyền xem thông tin của chính mình
-SELECT * FROM SINHVIEN WHERE MASV = 'SV01';
+SELECT * FROM CAMPUSADMIN.SINHVIEN WHERE MASV = 'SV01';
 
 -- Kiểm tra quyền chỉnh sửa thông tin địa chỉ và số điện thoại
-UPDATE SINHVIEN SET DCHI = 'New Address', DT = '0123456789' WHERE MASV = 'SV01';
+UPDATE CAMPUSADMIN.SINHVIEN SET DCHI = 'New Address', DT = '0123456789' WHERE MASV = 'SV01';
 
 -- Kiểm tra quyền xem danh sách học phần và kế hoạch mở môn
-SELECT * FROM HOCPHAN;
-SELECT * FROM KHMO;
+SELECT * FROM CAMPUSADMIN.HOCPHAN;
+SELECT * FROM CAMPUSADMIN.KHMO;
 
 -- Kiểm tra quyền thêm, xóa dữ liệu đăng ký học phần
-INSERT INTO DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES ('SV01', 'NV01', 'HP01', 1, 2023, 'CT01');
-DELETE FROM DANGKY WHERE MASV = 'SV01' AND MAHP = 'HP01';
+INSERT INTO CAMPUSADMIN.DANGKY (MASV, MAGV, MAHP, HK, NAM, MACT) VALUES ('SV01', 'NV01', 'HP01', 1, 2023, 'CT01');
+DELETE FROM CAMPUSADMIN.DANGKY WHERE MASV = 'SV01' AND MAHP = 'HP01';
