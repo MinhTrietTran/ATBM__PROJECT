@@ -1,6 +1,6 @@
-﻿namespace UsersManagement
+﻿namespace CampusPro
 {
-    partial class SystemUsers
+    partial class Audit_UI
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.exitBtn = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.revokeBtn = new System.Windows.Forms.Button();
-            this.grantBtn = new System.Windows.Forms.Button();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.fineGrainedAudit = new System.Windows.Forms.Label();
+            this.standardAuditLabel = new System.Windows.Forms.Label();
+            this.objectsCB = new System.Windows.Forms.ComboBox();
+            this.fineGrainedCB = new System.Windows.Forms.ComboBox();
+            this.search1Btn = new System.Windows.Forms.Label();
             this.searchBtn = new System.Windows.Forms.Label();
             this.usersDGV = new System.Windows.Forms.DataGridView();
             this.toolBarPanel = new System.Windows.Forms.Panel();
+            this.auditBtn = new System.Windows.Forms.Button();
             this.refreshBtn = new System.Windows.Forms.Button();
             this.exitBtn1 = new System.Windows.Forms.Button();
             this.logoutBtn = new System.Windows.Forms.Button();
@@ -43,99 +45,104 @@
             this.privilegesBtn = new System.Windows.Forms.Button();
             this.systemUsersBtn = new System.Windows.Forms.Button();
             this.appName = new System.Windows.Forms.Label();
-            this.auditBtn = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.usersDGV)).BeginInit();
             this.toolBarPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // exitBtn
-            // 
-            this.exitBtn.BackColor = System.Drawing.Color.Red;
-            this.exitBtn.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.exitBtn.Location = new System.Drawing.Point(1213, 12);
-            this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(37, 35);
-            this.exitBtn.TabIndex = 1;
-            this.exitBtn.Text = "X";
-            this.exitBtn.UseVisualStyleBackColor = false;
-            // 
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.SteelBlue;
-            this.mainPanel.Controls.Add(this.revokeBtn);
-            this.mainPanel.Controls.Add(this.grantBtn);
-            this.mainPanel.Controls.Add(this.searchTextBox);
+            this.mainPanel.Controls.Add(this.fineGrainedAudit);
+            this.mainPanel.Controls.Add(this.standardAuditLabel);
+            this.mainPanel.Controls.Add(this.objectsCB);
+            this.mainPanel.Controls.Add(this.fineGrainedCB);
+            this.mainPanel.Controls.Add(this.search1Btn);
             this.mainPanel.Controls.Add(this.searchBtn);
             this.mainPanel.Controls.Add(this.usersDGV);
-            this.mainPanel.Location = new System.Drawing.Point(14, 118);
+            this.mainPanel.Location = new System.Drawing.Point(5, 100);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1254, 590);
-            this.mainPanel.TabIndex = 6;
+            this.mainPanel.Size = new System.Drawing.Size(1254, 571);
+            this.mainPanel.TabIndex = 9;
             // 
-            // revokeBtn
+            // fineGrainedAudit
             // 
-            this.revokeBtn.BackColor = System.Drawing.Color.Red;
-            this.revokeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.revokeBtn.ForeColor = System.Drawing.Color.White;
-            this.revokeBtn.Location = new System.Drawing.Point(186, 10);
-            this.revokeBtn.Name = "revokeBtn";
-            this.revokeBtn.Size = new System.Drawing.Size(113, 36);
-            this.revokeBtn.TabIndex = 8;
-            this.revokeBtn.Text = "Revoke";
-            this.revokeBtn.UseVisualStyleBackColor = false;
-            this.revokeBtn.Click += new System.EventHandler(this.revokeBtn_Click);
+            this.fineGrainedAudit.AutoSize = true;
+            this.fineGrainedAudit.BackColor = System.Drawing.Color.Transparent;
+            this.fineGrainedAudit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fineGrainedAudit.ForeColor = System.Drawing.Color.Yellow;
+            this.fineGrainedAudit.Location = new System.Drawing.Point(857, 9);
+            this.fineGrainedAudit.Name = "fineGrainedAudit";
+            this.fineGrainedAudit.Size = new System.Drawing.Size(167, 20);
+            this.fineGrainedAudit.TabIndex = 9;
+            this.fineGrainedAudit.Text = "Fine-Grained Audit";
             // 
-            // grantBtn
+            // standardAuditLabel
             // 
-            this.grantBtn.BackColor = System.Drawing.Color.Lime;
-            this.grantBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grantBtn.ForeColor = System.Drawing.Color.Black;
-            this.grantBtn.Location = new System.Drawing.Point(43, 10);
-            this.grantBtn.Name = "grantBtn";
-            this.grantBtn.Size = new System.Drawing.Size(113, 36);
-            this.grantBtn.TabIndex = 7;
-            this.grantBtn.Text = "Grant";
-            this.grantBtn.UseVisualStyleBackColor = false;
-            this.grantBtn.Click += new System.EventHandler(this.grantBtn_Click);
+            this.standardAuditLabel.AutoSize = true;
+            this.standardAuditLabel.BackColor = System.Drawing.Color.Transparent;
+            this.standardAuditLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.standardAuditLabel.ForeColor = System.Drawing.Color.Yellow;
+            this.standardAuditLabel.Location = new System.Drawing.Point(500, 9);
+            this.standardAuditLabel.Name = "standardAuditLabel";
+            this.standardAuditLabel.Size = new System.Drawing.Size(133, 20);
+            this.standardAuditLabel.TabIndex = 8;
+            this.standardAuditLabel.Text = "Standard Audit";
             // 
-            // searchTextBox
+            // objectsCB
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(924, 10);
-            this.searchTextBox.Multiline = true;
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(229, 39);
-            this.searchTextBox.TabIndex = 2;
-            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
-            this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
+            this.objectsCB.FormattingEnabled = true;
+            this.objectsCB.Location = new System.Drawing.Point(504, 32);
+            this.objectsCB.Name = "objectsCB";
+            this.objectsCB.Size = new System.Drawing.Size(269, 24);
+            this.objectsCB.TabIndex = 4;
+            // 
+            // fineGrainedCB
+            // 
+            this.fineGrainedCB.FormattingEnabled = true;
+            this.fineGrainedCB.Items.AddRange(new object[] {
+            "DANGKY(DIEMTH,DIEMQT,DIEMCK,DIEMTK)",
+            "NHANSU(PHUCAP)"});
+            this.fineGrainedCB.Location = new System.Drawing.Point(863, 32);
+            this.fineGrainedCB.Name = "fineGrainedCB";
+            this.fineGrainedCB.Size = new System.Drawing.Size(289, 24);
+            this.fineGrainedCB.TabIndex = 3;
+            // 
+            // search1Btn
+            // 
+            this.search1Btn.AutoSize = true;
+            this.search1Btn.BackColor = System.Drawing.Color.White;
+            this.search1Btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.search1Btn.Location = new System.Drawing.Point(776, 16);
+            this.search1Btn.Name = "search1Btn";
+            this.search1Btn.Size = new System.Drawing.Size(50, 38);
+            this.search1Btn.TabIndex = 2;
+            this.search1Btn.Text = "🔎";
+            this.search1Btn.Click += new System.EventHandler(this.search1Btn_Click);
             // 
             // searchBtn
             // 
             this.searchBtn.AutoSize = true;
             this.searchBtn.BackColor = System.Drawing.Color.White;
             this.searchBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBtn.Location = new System.Drawing.Point(1153, 10);
+            this.searchBtn.Location = new System.Drawing.Point(1152, 16);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(50, 38);
             this.searchBtn.TabIndex = 1;
             this.searchBtn.Text = "🔎";
             this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
-            this.searchBtn.MouseEnter += new System.EventHandler(this.searchBtn_MouseEnter);
-            this.searchBtn.MouseLeave += new System.EventHandler(this.searchBtn_MouseLeave);
             // 
             // usersDGV
             // 
             this.usersDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.usersDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.usersDGV.Location = new System.Drawing.Point(16, 59);
+            this.usersDGV.Location = new System.Drawing.Point(9, 70);
             this.usersDGV.Name = "usersDGV";
             this.usersDGV.RowHeadersWidth = 51;
             this.usersDGV.RowTemplate.Height = 24;
             this.usersDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.usersDGV.Size = new System.Drawing.Size(1220, 517);
+            this.usersDGV.Size = new System.Drawing.Size(1220, 491);
             this.usersDGV.TabIndex = 0;
-            this.usersDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.usersDGV_CellClick);
             // 
             // toolBarPanel
             // 
@@ -151,16 +158,27 @@
             this.toolBarPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.toolBarPanel.Location = new System.Drawing.Point(0, 0);
             this.toolBarPanel.Name = "toolBarPanel";
-            this.toolBarPanel.Size = new System.Drawing.Size(1280, 100);
-            this.toolBarPanel.TabIndex = 5;
+            this.toolBarPanel.Size = new System.Drawing.Size(1262, 100);
+            this.toolBarPanel.TabIndex = 8;
+            // 
+            // auditBtn
+            // 
+            this.auditBtn.BackColor = System.Drawing.Color.White;
+            this.auditBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.auditBtn.Location = new System.Drawing.Point(842, 55);
+            this.auditBtn.Name = "auditBtn";
+            this.auditBtn.Size = new System.Drawing.Size(210, 45);
+            this.auditBtn.TabIndex = 7;
+            this.auditBtn.Text = "Audit";
+            this.auditBtn.UseVisualStyleBackColor = false;
             // 
             // refreshBtn
             // 
             this.refreshBtn.BackColor = System.Drawing.Color.LightBlue;
             this.refreshBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshBtn.Location = new System.Drawing.Point(641, 56);
+            this.refreshBtn.Location = new System.Drawing.Point(632, 56);
             this.refreshBtn.Name = "refreshBtn";
-            this.refreshBtn.Size = new System.Drawing.Size(213, 45);
+            this.refreshBtn.Size = new System.Drawing.Size(210, 45);
             this.refreshBtn.TabIndex = 6;
             this.refreshBtn.Text = "Refresh";
             this.refreshBtn.UseVisualStyleBackColor = false;
@@ -171,7 +189,7 @@
             this.exitBtn1.BackColor = System.Drawing.Color.Red;
             this.exitBtn1.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitBtn1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.exitBtn1.Location = new System.Drawing.Point(1231, 12);
+            this.exitBtn1.Location = new System.Drawing.Point(1222, 7);
             this.exitBtn1.Name = "exitBtn1";
             this.exitBtn1.Size = new System.Drawing.Size(37, 35);
             this.exitBtn1.TabIndex = 5;
@@ -183,9 +201,9 @@
             // 
             this.logoutBtn.BackColor = System.Drawing.Color.LightBlue;
             this.logoutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.logoutBtn.Location = new System.Drawing.Point(1063, 56);
+            this.logoutBtn.Location = new System.Drawing.Point(1053, 56);
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(213, 45);
+            this.logoutBtn.Size = new System.Drawing.Size(210, 45);
             this.logoutBtn.TabIndex = 4;
             this.logoutBtn.Text = "Log out";
             this.logoutBtn.UseVisualStyleBackColor = false;
@@ -195,9 +213,9 @@
             // 
             this.usersAndRolesBtn.BackColor = System.Drawing.Color.LightBlue;
             this.usersAndRolesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usersAndRolesBtn.Location = new System.Drawing.Point(425, 56);
+            this.usersAndRolesBtn.Location = new System.Drawing.Point(422, 56);
             this.usersAndRolesBtn.Name = "usersAndRolesBtn";
-            this.usersAndRolesBtn.Size = new System.Drawing.Size(213, 45);
+            this.usersAndRolesBtn.Size = new System.Drawing.Size(210, 45);
             this.usersAndRolesBtn.TabIndex = 3;
             this.usersAndRolesBtn.Text = "Users and Roles";
             this.usersAndRolesBtn.UseVisualStyleBackColor = false;
@@ -209,7 +227,7 @@
             this.privilegesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.privilegesBtn.Location = new System.Drawing.Point(212, 56);
             this.privilegesBtn.Name = "privilegesBtn";
-            this.privilegesBtn.Size = new System.Drawing.Size(213, 45);
+            this.privilegesBtn.Size = new System.Drawing.Size(210, 45);
             this.privilegesBtn.TabIndex = 2;
             this.privilegesBtn.Text = "Privileges ";
             this.privilegesBtn.UseVisualStyleBackColor = false;
@@ -217,15 +235,16 @@
             // 
             // systemUsersBtn
             // 
-            this.systemUsersBtn.BackColor = System.Drawing.Color.White;
+            this.systemUsersBtn.BackColor = System.Drawing.Color.LightBlue;
             this.systemUsersBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.systemUsersBtn.ForeColor = System.Drawing.Color.Black;
-            this.systemUsersBtn.Location = new System.Drawing.Point(0, 56);
+            this.systemUsersBtn.Location = new System.Drawing.Point(2, 56);
             this.systemUsersBtn.Name = "systemUsersBtn";
-            this.systemUsersBtn.Size = new System.Drawing.Size(213, 45);
+            this.systemUsersBtn.Size = new System.Drawing.Size(210, 45);
             this.systemUsersBtn.TabIndex = 1;
             this.systemUsersBtn.Text = "System Users";
             this.systemUsersBtn.UseVisualStyleBackColor = false;
+            this.systemUsersBtn.Click += new System.EventHandler(this.systemUsersBtn_Click);
             // 
             // appName
             // 
@@ -237,31 +256,17 @@
             this.appName.TabIndex = 0;
             this.appName.Text = "Oracle DB Server Manager 1.0";
             // 
-            // auditBtn
-            // 
-            this.auditBtn.BackColor = System.Drawing.Color.LightBlue;
-            this.auditBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.auditBtn.Location = new System.Drawing.Point(852, 55);
-            this.auditBtn.Name = "auditBtn";
-            this.auditBtn.Size = new System.Drawing.Size(213, 45);
-            this.auditBtn.TabIndex = 7;
-            this.auditBtn.Text = "Audit";
-            this.auditBtn.UseVisualStyleBackColor = false;
-            this.auditBtn.Click += new System.EventHandler(this.auditBtn_Click);
-            // 
-            // SystemUsers
+            // Audit_UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.ClientSize = new System.Drawing.Size(1262, 673);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.toolBarPanel);
-            this.Controls.Add(this.exitBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "SystemUsers";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SystemUsers";
-            this.Load += new System.EventHandler(this.SystemUsers_Load);
+            this.Name = "Audit_UI";
+            this.Text = "Audit";
+            this.Load += new System.EventHandler(this.Audit_Load);
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.usersDGV)).EndInit();
@@ -273,21 +278,22 @@
 
         #endregion
 
-        private System.Windows.Forms.Button exitBtn;
         private System.Windows.Forms.Panel mainPanel;
+        private System.Windows.Forms.Label searchBtn;
+        private System.Windows.Forms.DataGridView usersDGV;
         private System.Windows.Forms.Panel toolBarPanel;
+        private System.Windows.Forms.Button refreshBtn;
+        private System.Windows.Forms.Button exitBtn1;
         private System.Windows.Forms.Button logoutBtn;
         private System.Windows.Forms.Button usersAndRolesBtn;
         private System.Windows.Forms.Button privilegesBtn;
         private System.Windows.Forms.Button systemUsersBtn;
         private System.Windows.Forms.Label appName;
-        private System.Windows.Forms.DataGridView usersDGV;
-        private System.Windows.Forms.Label searchBtn;
-        private System.Windows.Forms.TextBox searchTextBox;
-        private System.Windows.Forms.Button exitBtn1;
-        private System.Windows.Forms.Button refreshBtn;
-        private System.Windows.Forms.Button grantBtn;
-        private System.Windows.Forms.Button revokeBtn;
         private System.Windows.Forms.Button auditBtn;
+        private System.Windows.Forms.Label fineGrainedAudit;
+        private System.Windows.Forms.Label standardAuditLabel;
+        private System.Windows.Forms.ComboBox objectsCB;
+        private System.Windows.Forms.ComboBox fineGrainedCB;
+        private System.Windows.Forms.Label search1Btn;
     }
 }

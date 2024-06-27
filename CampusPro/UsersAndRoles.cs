@@ -243,5 +243,15 @@ namespace UsersManagement
             obj.Show();
             this.Hide();
         }
+
+        private void auditBtn_Click(object sender, EventArgs e)
+        {
+            CampusPro.Audit_UI obj = new CampusPro.Audit_UI();
+            obj.username = username;
+            obj.password = password;
+            obj.role = role;
+            obj.Show();
+            this.Hide();
+        }
     }
 }

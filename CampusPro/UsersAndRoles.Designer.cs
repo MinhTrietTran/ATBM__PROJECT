@@ -52,6 +52,7 @@
             this.rolesDGV = new System.Windows.Forms.DataGridView();
             this.roleNameTextBox = new System.Windows.Forms.TextBox();
             this.roleNameLabel = new System.Windows.Forms.Label();
+            this.auditBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.uSERBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersDGV)).BeginInit();
             this.toolBarPanel.SuspendLayout();
@@ -93,6 +94,7 @@
             // toolBarPanel
             // 
             this.toolBarPanel.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.toolBarPanel.Controls.Add(this.auditBtn);
             this.toolBarPanel.Controls.Add(this.refreshBtn);
             this.toolBarPanel.Controls.Add(this.logoutBtn);
             this.toolBarPanel.Controls.Add(this.usersAndRolesBtn);
@@ -109,9 +111,9 @@
             // 
             this.refreshBtn.BackColor = System.Drawing.Color.LightBlue;
             this.refreshBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.refreshBtn.Location = new System.Drawing.Point(768, 56);
+            this.refreshBtn.Location = new System.Drawing.Point(642, 56);
             this.refreshBtn.Name = "refreshBtn";
-            this.refreshBtn.Size = new System.Drawing.Size(255, 45);
+            this.refreshBtn.Size = new System.Drawing.Size(213, 45);
             this.refreshBtn.TabIndex = 5;
             this.refreshBtn.Text = "Refresh";
             this.refreshBtn.UseVisualStyleBackColor = false;
@@ -121,9 +123,9 @@
             // 
             this.logoutBtn.BackColor = System.Drawing.Color.LightBlue;
             this.logoutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.logoutBtn.Location = new System.Drawing.Point(1021, 56);
+            this.logoutBtn.Location = new System.Drawing.Point(1060, 56);
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(259, 45);
+            this.logoutBtn.Size = new System.Drawing.Size(213, 45);
             this.logoutBtn.TabIndex = 4;
             this.logoutBtn.Text = "Log out";
             this.logoutBtn.UseVisualStyleBackColor = false;
@@ -133,9 +135,9 @@
             // 
             this.usersAndRolesBtn.BackColor = System.Drawing.Color.White;
             this.usersAndRolesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usersAndRolesBtn.Location = new System.Drawing.Point(513, 56);
+            this.usersAndRolesBtn.Location = new System.Drawing.Point(429, 56);
             this.usersAndRolesBtn.Name = "usersAndRolesBtn";
-            this.usersAndRolesBtn.Size = new System.Drawing.Size(259, 45);
+            this.usersAndRolesBtn.Size = new System.Drawing.Size(213, 45);
             this.usersAndRolesBtn.TabIndex = 3;
             this.usersAndRolesBtn.Text = "Users and Roles";
             this.usersAndRolesBtn.UseVisualStyleBackColor = false;
@@ -144,9 +146,9 @@
             // 
             this.privilegesBtn.BackColor = System.Drawing.Color.LightBlue;
             this.privilegesBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.privilegesBtn.Location = new System.Drawing.Point(257, 56);
+            this.privilegesBtn.Location = new System.Drawing.Point(215, 56);
             this.privilegesBtn.Name = "privilegesBtn";
-            this.privilegesBtn.Size = new System.Drawing.Size(259, 45);
+            this.privilegesBtn.Size = new System.Drawing.Size(213, 45);
             this.privilegesBtn.TabIndex = 2;
             this.privilegesBtn.Text = "Privileges ";
             this.privilegesBtn.UseVisualStyleBackColor = false;
@@ -159,7 +161,7 @@
             this.systemUsersBtn.ForeColor = System.Drawing.Color.Black;
             this.systemUsersBtn.Location = new System.Drawing.Point(0, 56);
             this.systemUsersBtn.Name = "systemUsersBtn";
-            this.systemUsersBtn.Size = new System.Drawing.Size(259, 45);
+            this.systemUsersBtn.Size = new System.Drawing.Size(213, 45);
             this.systemUsersBtn.TabIndex = 1;
             this.systemUsersBtn.Text = "System Users";
             this.systemUsersBtn.UseVisualStyleBackColor = false;
@@ -339,6 +341,18 @@
             this.roleNameLabel.TabIndex = 9;
             this.roleNameLabel.Text = "Role Name";
             // 
+            // auditBtn
+            // 
+            this.auditBtn.BackColor = System.Drawing.Color.LightBlue;
+            this.auditBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.auditBtn.Location = new System.Drawing.Point(855, 56);
+            this.auditBtn.Name = "auditBtn";
+            this.auditBtn.Size = new System.Drawing.Size(213, 45);
+            this.auditBtn.TabIndex = 6;
+            this.auditBtn.Text = "Audit";
+            this.auditBtn.UseVisualStyleBackColor = false;
+            this.auditBtn.Click += new System.EventHandler(this.auditBtn_Click);
+            // 
             // UsersAndRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -394,5 +408,6 @@
         private System.Windows.Forms.Button deleteRoleBtn;
         private System.Windows.Forms.Button logoutBtn;
         private System.Windows.Forms.Button refreshBtn;
+        private System.Windows.Forms.Button auditBtn;
     }
 }

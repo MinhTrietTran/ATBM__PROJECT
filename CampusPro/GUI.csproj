@@ -104,6 +104,12 @@
     <Compile Include="AddUser.Designer.cs">
       <DependentUpon>AddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Audit_UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Audit_UI.Designer.cs">
+      <DependentUpon>Audit_UI.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditRole.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Audit_UI.resx">
+      <DependentUpon>Audit_UI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditRole.resx">
       <DependentUpon>EditRole.cs</DependentUpon>

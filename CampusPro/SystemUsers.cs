@@ -24,7 +24,7 @@ namespace UsersManagement
 
         private void SystemUsers_Load(object sender, EventArgs e)
         {
-            usersDGV.DataSource = systemUsers.GetAllSystemUsers();  
+            usersDGV.DataSource = systemUsers.GetAllSystemUsers();
         }
 
         // Filter users
@@ -82,7 +82,7 @@ namespace UsersManagement
             if (usersDGV.SelectedRows.Count > 0)
             {
                 GrantRoleForUser target = new GrantRoleForUser();
-                target.UsernameSelected =  UserName;
+                target.UsernameSelected = UserName;
                 target.Show();
             }
             else
@@ -98,7 +98,7 @@ namespace UsersManagement
             {
                 UserName = usersDGV.SelectedRows[0].Cells[0].Value.ToString();
             }
-             
+
         }
 
         private void revokeBtn_Click(object sender, EventArgs e)
@@ -147,5 +147,14 @@ namespace UsersManagement
             this.Hide();
         }
 
+        private void auditBtn_Click(object sender, EventArgs e)
+        {
+            CampusPro.Audit_UI obj = new CampusPro.Audit_UI();
+            obj.username = username;
+            obj.password = password;
+            obj.role = role;
+            obj.Show();
+            this.Hide();
+        }
     }
 }
