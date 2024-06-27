@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditDAO.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="GiangVien_DAO.cs" />
     <Compile Include="LoginDAO.cs" />

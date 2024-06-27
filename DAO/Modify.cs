@@ -31,7 +31,7 @@ namespace DAO
             }
             return dataTable;
         }
-        public DataTable LoadTable(string query, string username, string password, string role) // Tra ve bang du lieu
+        public DataTable LoadTable(string query, string username, string password) // Tra ve bang du lieu
         {
             DataTable dataTable = new DataTable();
             using (OracleConnection oracleConnection = LoginDAO.GetAppConnection(username,password))
