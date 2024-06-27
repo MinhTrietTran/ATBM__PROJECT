@@ -14,6 +14,6 @@ namespace BUS
         public DataTable GetObjects(string username, string password) => audit.LoadObjects(username, password);
         public DataTable StandardAudit(string username, string password, string objectName) => audit.StandardAudit(username, password, objectName);
 
-        public DataTable FineGrainedAudit(string username, string password) => audit.FineGrainedAudit(username, password);
+        public DataTable FineGrainedAudit(string username, string password, string cmd) => audit.FineGrainedAudit(username, password, cmd);
     }
 }

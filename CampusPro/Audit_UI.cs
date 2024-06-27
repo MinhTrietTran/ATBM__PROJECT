@@ -42,7 +42,7 @@ namespace CampusPro
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
-            usersDGV.DataSource = audit.FineGrainedAudit(username, password);
+            usersDGV.DataSource = audit.FineGrainedAudit(username, password, fineGrainedCB.Text.ToString());
         }
 
         private void exitBtn1_Click(object sender, EventArgs e)

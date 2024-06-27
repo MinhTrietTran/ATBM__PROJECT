@@ -29,14 +29,22 @@ namespace DAO
             DataTable dataTable = new DataTable();
             string query = "SELECT USERNAME, EXTENDED_TIMESTAMP, OBJ_NAME, ACTION_NAME, SQL_TEXT " +
                 "FROM DBA_AUDIT_TRAIL " +
-                $"WHERE OBJ_NAME = 'CAMPUSADMIN.{objectName}'";
+                $"WHERE OBJ_NAME = '{objectName}'";
             dataTable = modify.LoadTable(query, username, password);
             return dataTable;
         }
-        public DataTable FineGrainedAudit(string username, string password)
+        public DataTable FineGrainedAudit(string username, string password, string cmd)
         {
             DataTable dataTable = new DataTable();
-            string query = "SELECT DBUID,LSQLTEXT, OBJ$NAME, NTIMESTAMP# FROM SYS.FGA_LOG$";
+            string query = "";
+            if (cmd == "DANGKY(DIEMTH,DIEMQT,DIEMCK,DIEMTK)")
+            {
+                query = "SELECT DBUID,LSQLTEXT, OBJ$NAME, NTIMESTAMP# FROM SYS.FGA_LOG$ WHERE OBJ$NAME = 'DANGKY'";
+            }
+            else
+            {
+                query = "SELECT DBUID,LSQLTEXT, OBJ$NAME, NTIMESTAMP# FROM SYS.FGA_LOG$ WHERE OBJ$NAME = 'NHANSU'";
+            }
             dataTable = modify.LoadTable(query, username, password);
             return dataTable;
         }
